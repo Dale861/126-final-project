@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Tracking</title>
+
+  <!-- Lordicon Script -->
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="trackorder.css" />
+</head>
+<body>
+  <header>
+    <div><strong>Miagao Pabakal</strong></div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Rate</a></li>
+        <li><a href="#">Cart</a></li>
+        <li><a href="#">Account</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Your Order</h1>
+    <div class="delivery-time">Estimated Delivery<br><strong>36 Mins</strong></div>
+    <div class="clock-icon">
+      <lord-icon
+        src="https://cdn.lordicon.com/warimioc.json"
+        trigger="loop"
+        state="loop-oscillate"
+        style="width:250px;height:250px">
+      </lord-icon>
+    </div>
+    <div class="progress-section">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+      </div>
+      <div class="loading-text" id="loading-text">LOADING... 0%</div>
+    </div>
+    <div class="order-details">
+      <p>Your Order From: <strong>Vineyard</strong></p>
+      <p>Order Number: <strong>202394123</strong></p>
+    </div>
+  </main>
+
+  <!-- External JS -->
+  <script src="delivery.js"></script>
+</body>
+</html>
