@@ -14,7 +14,7 @@ const signInForm=document.getElementById('signIn');
 const signUpForm=document.getElementById('signup');
 
 function showNav() {
-  document.getElementById("nav").style.display = "flex";
+    document.getElementById("nav").style.display = "flex";
 }
 
 signUpButton.addEventListener('click',function(){

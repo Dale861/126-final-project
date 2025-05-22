@@ -320,11 +320,11 @@ main {
         border-radius: 4px;
     }
 
-    .Restaurant-SignUp{
+    .Map{
         margin-top: 50px;
     }
 
-    .Restaurant-SignUp img {
+    .Map img {
         width: 100%;
         max-width: 600px;
         border-radius: 0.5rem;
