@@ -24,7 +24,7 @@ include("connect.php");
             <ul id="nav">
                 <li><a href="">Home</a></li>
                 <li><a href="">Restaurants</a></li>
-                <li><a href="">Cart</a></li>
+                <li><a href="CheckoutPage.php">Cart</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
