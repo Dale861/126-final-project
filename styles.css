@@ -1,0 +1,356 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"poppins",sans-serif;
+}
+
+body{
+    background-color: #e3e3e3;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+
+    #logo {
+        flex-grow: 1;
+    }
+
+    nav img{
+            width: 40px;
+    }
+
+    .nav {
+        /* display: flex; */
+
+        ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+
+            li a {
+                /* display: none; */
+                text-decoration: none;
+                border-radius: 4px;
+                color: rgb(77, 77, 77);
+                font-weight: bold;
+                padding: 8px 12px;
+                transition: background-color 0.3s, border-radius 0.3s;
+                background-color: #cbcbcb;
+
+                &:hover {
+                    background-color: #f0f0f0;
+                    border-radius: 8px;
+                }
+            }
+        }
+            
+    }
+
+    .open-button {
+        display: block;
+        background-color: #555;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        opacity: 0.8;
+        position: fixed;
+        top: 20px;
+        right: 28px;
+        width: 100px;
+    }
+
+}
+
+main {
+    font-family: sans-serif;
+    padding: 1rem 1rem;
+    max-width: 1200px;
+    margin: auto;
+
+    /* for the sign-in */
+    .signup-container, .signin-container{
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 40%;
+        opacity: 0.95;
+        background:#e0e0e0;
+        width:450px;
+        padding:1.5rem;
+        margin:50px auto;
+        border-radius:10px;
+        box-shadow:0 20px 35px rgba(0,0,1,0.9);
+
+        form{
+            margin:0 2rem;
+        }
+        .form-title{
+            font-size:1.5rem;
+            font-weight:bold;
+            text-align:center;
+            padding:1.3rem;
+            margin-bottom:0.4rem;       
+        }
+        input{
+            color:inherit;
+            width:100%;
+            background-color:transparent;
+            border:none;
+            border-bottom:1px solid #757575;
+            padding-left:1.5rem;
+            font-size:15px;
+        }
+        .input-group{
+            padding:1% 0;
+            position:relative;
+        
+        }
+        .input-group i{
+            position:absolute;
+            color:black;
+        }
+        input:focus{
+            background-color: transparent;
+            outline:transparent;
+            border-bottom:2px solid hsl(327,90%,28%);
+        }
+        input::placeholder{
+            color:transparent;
+        }
+        label{
+            color:#757575;
+            position:relative;
+            left:1.2em;
+            top:-1.3em;
+            cursor:auto;
+            transition:0.3s ease all;
+        }
+        input:focus~label,input:not(:placeholder-shown)~label{
+            top:-3em;
+            color:hsl(327,90%,28%);
+            font-size:15px;
+        }
+        .recover{
+            text-align:right;
+            font-size:1rem;
+            margin-bottom:1rem;
+        
+        }
+        .recover a{
+            text-decoration:none;
+            color:rgb(125,125,235);
+        }
+        .recover a:hover{
+            color:blue;
+            text-decoration:underline;
+        }
+        .btn{
+            font-size:1.1rem;
+            padding:8px 0;
+            border-radius:5px;
+            outline:none;
+            border:none;
+            width:100%;
+            background:rgb(125,125,235);
+            color:white;
+            cursor:pointer;
+            transition:0.9s;
+        }
+        .btn:hover{
+            background:#07001f;
+        }
+        .or{
+            font-size:1.1rem;
+            margin-top:0.5rem;
+            text-align:center;
+        }
+        .icons{
+            text-align:center;
+        }
+        .icons i{
+            color:rgb(125,125,235);
+            padding:0.8rem 1.5rem;
+            border-radius:10px;
+            font-size:1.5rem;
+            cursor:pointer;
+            border:2px solid #dfe9f5;
+            margin:0 15px;
+            transition:1s;
+        }
+        .icons i:hover{
+            background:#07001f;
+            font-size:1.6rem;
+            border:2px solid rgb(125,125,235);
+        }
+        .links{
+            display:flex;
+            justify-content:space-around;
+            padding:0 4rem;
+            margin-top:0.9rem;
+            font-weight:bold;
+        }
+        button{
+            padding: 0 0;
+            color:rgb(125,125,235);
+            border:none;
+            background-color:transparent;
+            font-size:1rem;
+            font-weight:bold;
+        }
+        button:hover{
+            text-decoration:underline;
+            color:blue;
+        }
+    }
+
+    section {
+        margin-bottom: 3rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    button {
+        padding: 0.5rem 1rem;
+        background-color: black;
+        color: white;
+        border: none;
+        margin-right: 1rem;
+        cursor: pointer;
+    }
+    
+    button.secondary {
+        background-color: #e5e5e5;
+        color: black;
+    }
+
+    /* Shop grid */
+    .shop-grid {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .shop-item {
+        flex: 1 1 45%;
+        background: #f9f9f9;
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+    
+    .shop-item img {
+        width: 100%;
+        border-radius: 0.5rem;
+    }
+
+    /* Reviews */
+    .review-grid {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .review-card {
+        flex: 1 1 30%;
+        background: #f1f1f1;
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    /* Footer section */
+    .Footer-Section footer {
+        margin-top: 2rem;
+        border-top: 1px solid #ccc;
+        padding-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .footer-links {
+        display: flex;
+        gap: 2rem;
+    }
+    
+    .footer-links ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .footer-links li {
+        margin-bottom: 0.5rem;
+    }
+
+    .LocationAPI {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .LocationAPI h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .search-bar {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .search-bar input {
+        padding: 0.5rem;
+        width: 250px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .search-bar button {
+        padding: 0.5rem 1rem;
+        background-color: black;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .Map{
+        margin-top: 50px;
+    }
+
+    .Map img {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 0.5rem;
+    } 
+
+    .Food-Selection .food-grid {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .food-card {
+        width: 180px;
+        text-align: center;
+    }
+
+    .food-card img {
+        width: 100%;
+        border-radius: 0.5rem;
+    }
+
+    .food-card p {
+        margin-top: 0.5rem;
+        font-weight: bold;
+    }
+
+
+}

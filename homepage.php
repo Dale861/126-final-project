@@ -12,7 +12,11 @@ include("connect.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register & Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="signUp-style.css">
+=======
+    <link rel="stylesheet" href="styles.css">
+>>>>>>> 1b5d3db8b2f02c9d1369e7ce9a2300bb84e1c402
 </head>
 <body>
   <main>
@@ -24,7 +28,11 @@ include("connect.php");
             <ul id="nav">
                 <li><a href="">Home</a></li>
                 <li><a href="">Restaurants</a></li>
+<<<<<<< HEAD
                 <li><a href="CheckoutPage.php">Cart</a></li>
+=======
+                <li><a href="">Cart</a></li>
+>>>>>>> 1b5d3db8b2f02c9d1369e7ce9a2300bb84e1c402
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
@@ -78,6 +86,7 @@ include("connect.php");
     </section>
 
     <section class="Shops">
+<<<<<<< HEAD
       <h2>Diin mo gusto mag bakal?</h2>
       <div class="shop-grid">
         <div class="shop-item">
@@ -95,6 +104,21 @@ include("connect.php");
       </div>
     </section>
 
+=======
+        <h2>Diin mo gusto mag bakal?</h2>
+        <div class="shop-grid">
+          <div class="shop-item">
+            <!-- ps. halin na sa fb ang Img src -->
+            <img src="https://scontent.fcgy2-4.fna.fbcdn.net/v/t39.30808-6/302068729_456097433205339_1121063619204570159_n.jpg?_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=6ee11a&amp;_nc_eui2=AeECkl9ZIuYSCbLhqrUjbu-DolM2jecTNQSiUzaN5xM1BHmbpFCUJTeCzB9Qn30ue6Kc24C_czMSzG7VtEF0MJFJ&amp;_nc_ohc=ZOVtAccaJAwQ7kNvwF1oGLk&amp;_nc_oc=AdnKyEMj3SvC_10qjT-E8cleCJBC8nY4H8Ad2hgAWrCOWZ_joPpCeNvm5Kyc0Zhsywg&amp;_nc_zt=23&amp;_nc_ht=scontent.fcgy2-4.fna&amp;_nc_gid=YXVC02lYGRKJbxVQlwPPCg&amp;oh=00_AfKNp4R78DesfiWiivJG38rZ9dymT1_4bq7cjFe8UDg0LA&amp;oe=68292D2A" alt="Kubo Resto">
+            <p><strong>Kubo Resto</strong>is chuchuchu</p>
+          </div>
+          <div class="shop-item">
+            <img src="https://scontent.fcgy2-2.fna.fbcdn.net/v/t39.30808-6/280529381_4526652207435039_8563210196956821114_n.jpg?_nc_cat=104&amp;ccb=1-7&amp;_nc_sid=6ee11a&amp;_nc_eui2=AeFLqgW-PQ4wq-rhdgqX2L6de60L8DtWZiZ7rQvwO1ZmJiF5Z-gt2JCyKPMc4-W_mS_vYlWaWlhkOoQn13skhwjh&amp;_nc_ohc=bp70ZAeSZJsQ7kNvwHWXg4H&amp;_nc_oc=Admxy533Nn77UJLhDdl0iWRfFiyh8g0UvpxF-ScitBCQExdPlbY9oHtGq_7iH1iDCOU&amp;_nc_zt=23&amp;_nc_ht=scontent.fcgy2-2.fna&amp;_nc_gid=-rvlLfGRBcgt1BpYmlfU7g&amp;oh=00_AfJ_zXD9fJ85XQffBVp4UrlVPjvmdKrn73ycTyw_KqBoZQ&amp;oe=68294F4D" alt="Vinyard">
+            <p><strong>Vinyard</strong> is a local restaurant in Miagao...</p>
+          </div>
+        </div>
+      </section>
+>>>>>>> 1b5d3db8b2f02c9d1369e7ce9a2300bb84e1c402
 
       <section class="Reviews">
         <h2>Reviews</h2>

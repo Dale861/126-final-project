@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <title>Product Detail</title>
+</head>
+<body>
+    <header>
+        <nav id="logo">
+            <img src="Img/Coffee-icon.png" alt="">
+        </nav>
+        <nav class="nav">
+            <ul id="nav" style="display: flex;"> <!-- kay naka hide by default -->
+                <li><a href="">Home</a></li>
+                <li><a href="">Restaurants</a></li>
+                <li><a href="">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <Main>
+        <section class="Product-Detail">
+            <img src="Img/Chocolate.jpg" alt="Miagao Church">
+
+            <div>
+                <h2>Product Name</h2>
+                <p>Product Description</p>
+                <p>Php 50.75</p>
+                <div class="quantity-selector">
+                    <button type="button" onclick="decreaseQuantity()">−</button>
+                    <input type="number" id="quantity" value="1" min="1">
+                    <button type="button" onclick="increaseQuantity()">+</button>
+                </div>
+                <button>Add To Cart</button>
+            </div>
+            <div class="selection">
+                <label for="size">Select Size</label>
+                <div class="size-options">
+                    <input type="radio" name="size" value="1" checked> Small <br>
+                    <input type="radio" name="size" value="2"> Medium <br>
+                    <input type="radio" name="size" value="3"> Large <br>
+                </div>
+                <br>
+                <br>
+
+                <label for="addons">Select Add-ons</label>
+                <div class="addons-options">
+                    <input type="checkbox" name="addons" value="1"> Extra Cheese <br>
+                    <input type="checkbox" name="addons" value="2"> Extra Sauce <br>
+                    <input type="checkbox" name="addons" value="3"> Extra Toppings <br>
+                </div>
+            </div>
+        </section>
+    </Main>
+</body>
+</html>
