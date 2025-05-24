@@ -38,6 +38,51 @@ if ($result->num_rows > 0) {
 
 $totalAmount = $subtotal + $shippingFee;
 
+// Fetch the customer's address from the database
+$addressQuery = "SELECT address FROM Customers WHERE customerID = $customerID";
+$addressResult = $mysqli->query($addressQuery);
+
+$customerAddress = "";
+$latitude = 10.6433;  // Default latitude if no address is found
+$longitude = 122.2355;  // Default longitude if no address is found
+
+if ($addressResult && $addressResult->num_rows > 0) {
+    $row = $addressResult->fetch_assoc();
+    $customerAddress = $row['address'];
+
+    // Geocode the address using cURL with proper headers
+    $geocodeUrl = "https://nominatim.openstreetmap.org/search?format=json&q=" . urlencode($customerAddress);
+
+    // Initialize cURL session
+    $ch = curl_init();
+
+    // Set cURL options
+    curl_setopt($ch, CURLOPT_URL, $geocodeUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'MyApp/1.0 (http://yourwebsite.com)'); // Add a user-agent header
+
+    // Execute the cURL session and get the response
+    $geocodeResponse = curl_exec($ch);
+
+    // Check for errors in the cURL request
+    if (curl_errno($ch)) {
+        echo 'Error:' . curl_error($ch);
+        exit;
+    }
+
+    // Close the cURL session
+    curl_close($ch);
+
+    // Decode the JSON response
+    $geocodeData = json_decode($geocodeResponse, true);
+
+    // If geocoding data is found, update latitude and longitude
+    if (!empty($geocodeData)) {
+        $latitude = $geocodeData[0]['lat'];
+        $longitude = $geocodeData[0]['lon'];
+    }
+}
+
 // Order placement logic
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
     $orderDate = date('Y-m-d H:i:s');
@@ -63,6 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
     exit();
 }
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -202,33 +250,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    const map = L.map('map').setView([10.6433, 122.2355], 13); // Default center
+    let map;  // Declare map globally
+    let marker;  // Declare marker globally
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+    function initMap(mapElementId, defaultLat = 10.6433, defaultLng = 122.2355, zoom = 13) {
+        // Initialize the map if not already initialized
+        if (!map) {
+            map = L.map(mapElementId).setView([defaultLat, defaultLng], zoom);  // Set the default center
 
-    let marker;
+            // Add the tile layer (OpenStreetMap)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+        }
 
-    map.on('click', function (e) {
-      const { lat, lng } = e.latlng;
+        // If the marker doesn't exist, create it
+        if (!marker) {
+            marker = L.marker([defaultLat, defaultLng], { draggable: true }).addTo(map);
+        }
 
-      if (marker) {
-        marker.setLatLng([lat, lng]);
-      } else {
-        marker = L.marker([lat, lng], { draggable: true }).addTo(map);
-      }
+        // Handle map click event to move the marker
+        map.on('click', function (e) {
+            const { lat, lng } = e.latlng;
 
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
-        .then(res => res.json())
-        .then(data => {
-          const address = data.display_name || "Address not found";
-          document.getElementById('address-display').textContent = address;
-        })
-        .catch(() => {
-          document.getElementById('address-display').textContent = "Error fetching address.";
+            // Move marker to clicked location
+            marker.setLatLng([lat, lng]);
+
+            // Fetch the address using reverse geocoding
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log("Geocoding Response:", data); // Log the response to check if the API returns the expected result
+                    const address = data.display_name || "Address not found";
+                    
+                    // Directly display the address in the #address-display paragraph
+                    document.getElementById('address-display').textContent = address;
+                })
+                .catch((error) => {
+                    console.error("Error fetching address:", error);
+                    document.getElementById('address-display').textContent = "Error fetching address.";
+                });
         });
+
+        // Set the map to the customer's address if available
+        map.setView([<?php echo $latitude; ?>, <?php echo $longitude; ?>], zoom); // Use the customer's latitude and longitude
+        marker.setLatLng([<?php echo $latitude; ?>, <?php echo $longitude; ?>]);  // Move the marker to the customer's address
+        document.getElementById('address-display').textContent = "<?php echo $customerAddress; ?>";  // Display the address
+    }
+
+    // Initialize the map only if the element exists
+    document.addEventListener('DOMContentLoaded', function () {
+        const mapElement = document.getElementById('map');
+        if (mapElement) {
+            initMap('map');  // Initialize the map with the element ID 'map'
+        }
     });
   </script>
 </body>
