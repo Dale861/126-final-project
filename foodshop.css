@@ -60,46 +60,81 @@ body {
   text-align: center;
   padding-top: 10px;
   transition: transform 0.5s;
+  overflow: hidden; /* Ensure content doesn't overflow */
 }
+
+/* List of Products (Grid layout) */
 .listProduct {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* 4 products per row */
   gap: 20px;
+  margin-bottom: 30px; /* Add bottom margin to avoid overlap */
 }
-.listProduct .item {
-  background-color: #EEEDE6;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  transition: transform 0.3s;
+
+@media (max-width: 1200px) {
+  .listProduct {
+    grid-template-columns: repeat(3, 1fr); /* 3 products per row on medium screens */
+  }
 }
-.listProduct .item:hover {
-  transform: scale(1.02);
+
+@media (max-width: 900px) {
+  .listProduct {
+    grid-template-columns: repeat(2, 1fr); /* 2 products per row on smaller screens */
+  }
 }
-.listProduct .item img {
-  width: 90%;
-  filter: drop-shadow(0 50px 20px rgba(0, 0, 0, 0.1));
+
+@media (max-width: 600px) {
+  .listProduct {
+    grid-template-columns: 1fr; /* 1 product per row on mobile screens */
+  }
 }
-.listProduct .item h2 {
+
+/* Individual Product Item */
+.product-item {
+  width: 100%; /* Ensure items fill available width */
+  height: auto;
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center;
+  margin: 15px 0; /* Add margin between items */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-item img {
+  width: 100%;
+  max-width: 150px; /* Optional: set a max width for uniformity */
+  height: 150px;
+  object-fit: cover; /* Ensures image doesn't get distorted */
+  border-radius: 5px; /* Optional: add rounded corners */
+}
+
+/* Product Title, Price, and Button */
+.product-item h3 {
+  font-size: 1rem;
   font-weight: 500;
-  font-size: 1.1rem;
+  margin-top: 10px;
 }
-.listProduct .item .price {
-  letter-spacing: 2px;
-  font-size: 0.9rem;
-  color: #444;
+
+.product-item .price {
+  font-size: 1.2rem;
+  color: #E8BC0E;
+  margin: 10px 0;
 }
-.listProduct .item button {
+
+.product-item button {
   background-color: #353432;
   color: #fff;
   border: none;
-  padding: 5px 12px;
+  padding: 8px 15px;
   margin-top: 10px;
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.listProduct .item button:hover {
+
+.product-item button:hover {
   background-color: #222;
 }
 
@@ -172,6 +207,7 @@ body {
   line-height: 25px;
 }
 
+/* Shop Banner */
 .shop-banner {
   text-align: center;
   margin: 20px 0;
@@ -182,12 +218,65 @@ body {
   border-radius: 8px;
   margin-bottom: 10px;
 }
+
 /* Categories container */
 .categories-container {
   display: flex;
   flex-direction: column;
   gap: 30px;
   padding: 20px;
+  width: calc(100% - 40px); /* Reduce the width a bit to ensure space for inner items */
+  margin-left: 20px; /* Move the container slightly to the left */
+  box-sizing: border-box; /* Ensure padding and margins are considered in width calculation */
+}
+
+/* Adjustments for Category itself */
+.category {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure the categories fill the available space */
+  max-width: 1200px; /* Optional: Ensure the categories don't stretch too wide */
+  margin: auto; /* Center categories horizontally */
+}
+
+.category h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+/* Product Item */
+.product-item {
+  width: 250px; /* Set a fixed width for product items */
+  height: auto;
+  background-color: #f4f4f4; /* Light background color */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center;
+  margin: 15px 0; /* Add margin between items */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Product list inside category */
+/* List of Products (Grid layout) */
+.listProduct {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 products per row */
+  gap: 20px;
+  margin-bottom: 30px; /* Add bottom margin to avoid overlap */
+  justify-items: center; /* Ensures products are centered within grid cells */
+}
+
+/* Adjustments for Individual Product Item */
+/* Product List Inside Category */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 products per row */
+  gap: 20px;
+  justify-items: center; /* Centers items within the grid */
+  padding: 10px;
 }
 
 /* Category container */
@@ -198,35 +287,24 @@ body {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.category h2 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-}
-
-/* Product list inside category */
-.product-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 products per row */
-  gap: 15px;
-  justify-items: center;
-}
-
-/* Product item */
+/* Product Item */
 .product-item {
-  background-color: #eee;
+  width: 100%; /* Full width */
+  height: auto;
+  background-color: #f4f4f4;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   text-align: center;
+  margin: 15px 0; /* Add margin between items */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-/* Product Item Images */
 .product-item img {
-  width: 100%; /* Adjusts to the size of its container */
-  max-width: 150px; /* Optional: set a max width to limit image size */
-  height: 150px;
-  object-fit: cover; /* Ensures images don't get distorted */
-  border-radius: 5px; /* Optional: add rounded corners */
+  width: 100%;
+  height: 150px; /* Fixed height for images */
+  object-fit: cover; /* Ensures images don't stretch */
+  border-radius: 5px;
 }
 
 .product-item h3 {
@@ -244,7 +322,9 @@ body {
 .product-item button {
   background-color: #353432;
   color: #fff;
+  border: none;
   padding: 8px 12px;
+  margin-top: 10px;
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -254,24 +334,6 @@ body {
   background-color: #222;
 }
 
-/* Footer buttons */
-/* Total amount in Cart */
-.totalAmount {
-  margin-top: 20px;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
-}
-
-/* Total amount in Cart */
-.totalAmount {
-  margin-top: 20px;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
-}
 
 /* Cart Footer */
 .cartTab .btn {
@@ -291,4 +353,3 @@ body {
   border-radius: 20px;
   text-align: center;
 }
-
