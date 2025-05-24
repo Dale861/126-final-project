@@ -1,11 +1,23 @@
 <?php
-include 'connect.php';
-include 'cart.php';
-
+session_start(); // Start the session
+include 'connect.php'; // Include database connection
+include 'cart.php'; // Include cart logic
+// Access customerID from session
+if (isset($_SESSION['customerID'])) {
+    $customerID = $_SESSION['customerID'];  // Get customerID from session
+} else {
+    // Redirect to login page if the user is not logged in
+    header("Location: index.php");
+    exit();
+}
 // Get shop ID from URL or default to 1
 $shopID = isset($_GET['shop']) ? (int)$_GET['shop'] : 1;
 
+// Store the shop ID in session for persistent use
+$_SESSION['shopID'] = $shopID; // Save the shopID to session
+
 // Fetch shop information
+include 'connect.php';
 $shopQuery = "SELECT * FROM Shops WHERE ShopID = $shopID";
 $shopResult = $mysqli->query($shopQuery);
 $shop = null;
@@ -14,7 +26,7 @@ if ($shopResult && $shopResult->num_rows > 0) {
     $shop = $shopResult->fetch_assoc();
 }
 
-// Fetch product list
+// Fetch product list based on shopID
 $productQuery = "SELECT * FROM Products WHERE ShopID = $shopID";
 $productResult = $mysqli->query($productQuery);
 ?>
@@ -36,7 +48,7 @@ $productResult = $mysqli->query($productQuery);
         <ul>
           <li><a href="homepage.php">Home</a></li>
           <li><a href="restaurant.php">Restaurants</a></li>
-          <li><a href="cart.php">Cart</a></li>
+          <li><a href="CheckoutPage.php">Cart</a></li>
           <li><a href="logout.php">Logout</a></li>
         </ul>
       </nav>
@@ -56,25 +68,29 @@ $productResult = $mysqli->query($productQuery);
 
     <!-- Product List -->
     <div class="listProduct">
-      <?php if ($productResult->num_rows > 0): ?>
-        <?php while ($product = $productResult->fetch_assoc()): ?>
-          <div class="item">
-            <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['itemName']; ?>">
-            <h2><?php echo $product['itemName']; ?></h2>
-            <div class="price">$<?php echo $product['price']; ?></div>
-            <form action="foodshoppage.php?shop=<?php echo $shopID; ?>" method="POST">
-              <input type="hidden" name="productID" value="<?php echo $product['productID']; ?>">
-              <input type="hidden" name="productName" value="<?php echo $product['itemName']; ?>">
-              <input type="hidden" name="productPrice" value="<?php echo $product['price']; ?>">
-              <input type="hidden" name="productImage" value="<?php echo $product['image_url']; ?>">
-              <button type="submit" name="add_to_cart">+</button>
-            </form>
-          </div>
-        <?php endwhile; ?>
-      <?php else: ?>
-        <p>No products available.</p>
-      <?php endif; ?>
+        <?php if ($productResult->num_rows > 0): ?>
+            <?php while ($product = $productResult->fetch_assoc()): ?>
+                <div class="item">
+                    <!-- Only one image tag inside the link -->
+                    <a href="fooddetail.php?productID=<?php echo $product['productID']; ?>">
+                        <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['itemName']; ?>">
+                    </a>
+                    <h2><?php echo $product['itemName']; ?></h2>
+                    <div class="price">P<?php echo number_format($product['price'], 2); ?></div>
+                    <form action="foodshoppage.php?shop=<?php echo $shopID; ?>" method="POST">
+                        <input type="hidden" name="productID" value="<?php echo $product['productID']; ?>">
+                        <input type="hidden" name="productName" value="<?php echo $product['itemName']; ?>">
+                        <input type="hidden" name="productPrice" value="<?php echo $product['price']; ?>">
+                        <input type="hidden" name="productImage" value="<?php echo $product['image_url']; ?>">
+                        <button type="submit" name="add_to_cart">+</button>
+                    </form>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>No products available.</p>
+        <?php endif; ?>
     </div>
+
 
     <!-- Cart Section -->
     <div class="cartTab">
@@ -87,7 +103,7 @@ $productResult = $mysqli->query($productQuery);
                 <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['name']; ?>">
               </div>
               <div class="name"><?php echo $product['name']; ?></div>
-              <div class="totalPrice">$<?php echo number_format($product['price'] * $product['quantity'], 2); ?></div>
+              <div class="totalPrice">P<?php echo number_format($product['price'] * $product['quantity'], 2); ?></div>
               <div class="quantity">
                 <form action="foodshoppage.php?shop=<?php echo $shopID; ?>" method="POST">
                   <input type="hidden" name="cartItemID" value="<?php echo $product['cartItemID']; ?>">

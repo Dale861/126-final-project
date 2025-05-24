@@ -1,8 +1,17 @@
 <?php
+session_start();  // Start the session
 include 'connect.php';
 
-// Replace this with actual session-based logic
-$customerID = 1;
+// Check if the customer is logged in
+if (!isset($_SESSION['customerID'])) {
+    header("Location: homepage.php"); // Redirect to login page
+    exit();
+}
+
+$customerID = $_SESSION['customerID']; // Get customerID from session
+
+// Get the shop ID from the session (if set)
+$shopID = isset($_SESSION['shopID']) ? $_SESSION['shopID'] : 1; // Default to 1 if not set
 
 // Fetch cart items from the database
 $cartQuery = "SELECT ci.cartItemID, p.productID, p.itemName AS name, p.price, ci.quantity, p.image_url 
@@ -13,13 +22,18 @@ $result = $mysqli->query($cartQuery);
 
 $products = [];
 $subtotal = 0;
-$shippingFee = 5.00;
+$shippingFee = 40.00;
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $products[] = $row;
         $subtotal += $row['price'] * $row['quantity'];
     }
+} else {
+    // If there are no products in the cart, redirect to the shop page with a message
+    $_SESSION['message'] = "Your cart is empty. Please add items to your cart!";
+    header("Location: foodshoppage.php?shop=$shopID");
+    exit();
 }
 
 $totalAmount = $subtotal + $shippingFee;
@@ -28,11 +42,13 @@ $totalAmount = $subtotal + $shippingFee;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
     $orderDate = date('Y-m-d H:i:s');
 
+    // Insert into Orders table
     $stmt = $mysqli->prepare("INSERT INTO Orders (customerID, orderDate, totalAmount) VALUES (?, ?, ?)");
     $stmt->bind_param("isd", $customerID, $orderDate, $totalAmount);
     $stmt->execute();
     $orderID = $stmt->insert_id;
 
+    // Insert into OrderItems table
     foreach ($products as $product) {
         $stmt = $mysqli->prepare("INSERT INTO OrderItems (orderID, productID, quantity, priceAtOrder) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("iiid", $orderID, $product['productID'], $product['quantity'], $product['price']);
@@ -42,7 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
     // Clear the cart
     $mysqli->query("DELETE FROM CartItems WHERE customerID = $customerID");
 
-    header("Location: trackingorder.html");
+    // Redirect to the tracking order page after placing the order
+    header("Location: trackingorder.php?orderID=$orderID");
     exit();
 }
 ?>
@@ -53,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
   <meta charset="UTF-8">
   <title>Checkout</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -64,6 +80,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
     h1 {
       text-align: center;
       margin-bottom: 30px;
+    }
+
+    .cart-wrapper {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .cart-left {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-right {
+      flex: 1;
     }
 
     .cart-item {
@@ -92,11 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
       margin: 0 0 10px 0;
     }
 
-    .summary {
-      margin-top: 40px;
-      font-size: 18px;
-    }
-
     .summary p {
       margin: 5px 0;
     }
@@ -115,81 +144,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
     .checkout-btn:hover {
       background: #333;
     }
+
+    #map {
+      width: 100%;
+      height: 500px;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
-  <div style="margin-bottom: 20px;">
-  <a href="foodshoppage.php" style="text-decoration: none; color: black; display: inline-flex; align-items: center;">
-    <span style="font-size: 24px; margin-right: 8px;">&#8592;</span> <!-- Left arrow -->
-    <span style="font-size: 18px;">Back to Shop</span>
-  </a>
-</div>
-
-  <h1>Checkout</h1>
-
-  <?php if (!empty($products)): ?>
-    <?php foreach ($products as $product): ?>
-      <div class="cart-item">
-        <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['name']; ?>">
-        <div class="cart-item-details">
-          <h2><?php echo $product['name']; ?></h2>
-          <p>Price: $<?php echo number_format($product['price'], 2); ?></p>
-          <p>Quantity: <?php echo $product['quantity']; ?></p>
-          <p>Total: $<?php echo number_format($product['price'] * $product['quantity'], 2); ?></p>
-        </div>
-      </div>
-    <?php endforeach; ?>
-
-    <div class="summary">
-      <p><strong>Subtotal:</strong> $<?php echo number_format($subtotal, 2); ?></p>
-      <p><strong>Shipping Fee:</strong> $<?php echo number_format($shippingFee, 2); ?></p>
-      <p><strong>Total Amount:</strong> $<?php echo number_format($totalAmount, 2); ?></p>
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <a href="foodshoppage.php?shop=<?php echo $shopID; ?>" style="text-decoration: none; color: black; display: inline-flex; align-items: center;">
+        <span style="font-size: 24px; margin-right: 8px;">&#8592;</span> <!-- Left arrow -->
+        <span style="font-size: 18px;">Back to Shop</span>
+      </a>
     </div>
 
-    <form method="POST">
-      <button onclick: window.type="submit" class="checkout-btn">Place Order</button>
-    </form>
-  <?php else: ?>
-    <p>No items in your cart.</p>
-  <?php endif; ?>
+    <h1>Checkout</h1>
 
-  <div style="margin-top: 40px;">
-  <h2>Choose Delivery Location</h2>
-  <div id="map" style="width: 100%; height: 300px; border-radius: 10px;"></div>
-  <p id="address-display" style="margin-top: 10px; font-weight: bold;">Click on the map to select your delivery address.</p>
-</div>
+    <div class="cart-wrapper">
+      <div class="cart-left">
+        <?php if (!empty($products)): ?>
+          <?php foreach ($products as $product): ?>
+            <div class="cart-item">
+              <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['name']; ?>">
+              <div class="cart-item-details">
+                <h2><?php echo $product['name']; ?></h2>
+                <p>Price: P<?php echo number_format($product['price'], 2); ?></p>
+                <p>Quantity: <?php echo $product['quantity']; ?></p>
+                <p>Total: P<?php echo number_format($product['price'] * $product['quantity'], 2); ?></p>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <p>Your cart is empty. Add some items to start shopping!</p>
+        <?php endif; ?>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script>
-  const map = L.map('map').setView([10.6433, 122.2355], 13); // Default center
+        <div class="summary">
+          <p><strong>Subtotal:</strong> P<?php echo number_format($subtotal, 2); ?></p>
+          <p><strong>Shipping Fee:</strong> P<?php echo number_format($shippingFee, 2); ?></p>
+          <p><strong>Total Amount:</strong> P<?php echo number_format($totalAmount, 2); ?></p>
+        </div>
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
+        <form method="POST">
+          <button type="submit" class="checkout-btn">Place Order</button>
+        </form>
+      </div>
 
-  let marker;
+      <div class="cart-right">
+        <h2>Choose Delivery Location</h2>
+        <div id="map"></div>
+        <p id="address-display" style="margin-top: 10px; font-weight: bold;">Click on the map to select your delivery address.</p>
+      </div>
+    </div>
+  </div>
 
-  map.on('click', function (e) {
-    const { lat, lng } = e.latlng;
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([10.6433, 122.2355], 13); // Default center
 
-    if (marker) {
-      marker.setLatLng([lat, lng]);
-    } else {
-      marker = L.marker([lat, lng], { draggable: true }).addTo(map);
-    }
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
-      .then(res => res.json())
-      .then(data => {
-        const address = data.display_name || "Address not found";
-        document.getElementById('address-display').textContent = address;
-      })
-      .catch(() => {
-        document.getElementById('address-display').textContent = "Error fetching address.";
-      });
-  });
-</script>
+    let marker;
 
+    map.on('click', function (e) {
+      const { lat, lng } = e.latlng;
+
+      if (marker) {
+        marker.setLatLng([lat, lng]);
+      } else {
+        marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+      }
+
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+        .then(res => res.json())
+        .then(data => {
+          const address = data.display_name || "Address not found";
+          document.getElementById('address-display').textContent = address;
+        })
+        .catch(() => {
+          document.getElementById('address-display').textContent = "Error fetching address.";
+        });
+    });
+  </script>
 </body>
 </html>

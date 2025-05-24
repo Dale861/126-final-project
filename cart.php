@@ -1,9 +1,15 @@
 <?php
 // Include the database connection file
 include 'connect.php';
-
+if (isset($_SESSION['customerID'])) {
+    $customerID = $_SESSION['customerID'];  // Get customerID from session
+} else {
+    // Redirect to login page if the user is not logged in
+    header("Location: index.php");
+    exit();
+}
 // Assuming the user is logged in, retrieve customerID from session or other method
-$customerID = 1; // Example customer ID, replace with actual logic for a logged-in user
+$customerID = isset($_SESSION['customerID']) ? $_SESSION['customerID'] : 1;; // Example customer ID, replace with actual logic for a logged-in user
 
 // Get the cart items for the customer
 $cartQuery = "SELECT ci.cartItemID, p.itemName AS name, p.price, ci.quantity, p.image_url 

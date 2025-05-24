@@ -320,15 +320,19 @@ main {
         border-radius: 4px;
     }
 
-    .Restaurant-SignUp{
-        margin-top: 50px;
-    }
+.Restaurant-SignUp {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center; /* Vertically center the content */
+    gap: 20px; /* Add space between the image and the content */
+}
 
-    .Restaurant-SignUp img {
-        width: 100%;
-        max-width: 600px;
-        border-radius: 0.5rem;
-    } 
+.Restaurant-SignUp img {
+    width: 50%; /* You can adjust the width to fit your design */
+    max-width: 400px; /* Optional: Set a max width to prevent the image from becoming too large */
+    border-radius: 0.5rem; /* Optional: Rounded corners for the image */
+}
+
 
     .Food-Selection .food-grid {
         display: flex;

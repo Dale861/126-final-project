@@ -1,21 +1,30 @@
 <?php 
-<<<<<<< HEAD
 include 'connect.php';
 
 if (isset($_POST['signUp'])) {
-    $name = $_POST['Name'];  // case-sensitive
+    $fname = $_POST['fname'];  // First name
+    $lname = $_POST['lname'];  // Last name
     $email = $_POST['email'];
-    $password = md5($_POST['password']); // consider password_hash for better security
+    $password = md5($_POST['password']); // Consider using password_hash for better security
 
+    // Check if the email already exists
     $checkEmail = "SELECT * FROM customers WHERE email='$email'";
     $result = $mysqli->query($checkEmail);
 
     if ($result->num_rows > 0) {
         echo "Email Address Already Exists!";
     } else {
-        $insertQuery = "INSERT INTO customers(name, email, password) VALUES ('$name', '$email', '$password')";
+        // Insert new user into the database
+        $insertQuery = "INSERT INTO customers(fname, lname, email, password) VALUES ('$fname', '$lname', '$email', '$password')";
         if ($mysqli->query($insertQuery) === TRUE) {
-            header("Location: index.php");
+            // After successful registration, get the customerID and store it in the session
+            $customerID = $mysqli->insert_id; // Get the last inserted customerID
+            session_start();
+            $_SESSION['customerID'] = $customerID;  // Store customerID in session
+            $_SESSION['email'] = $email;  // You can also store email in session if needed
+
+            header("Location: homepage.php");
+            exit();
         } else {
             echo "Error: " . $mysqli->error;
         }
@@ -30,64 +39,17 @@ if (isset($_POST['signIn'])) {
     $result = $mysqli->query($sql);
 
     if ($result->num_rows > 0) {
-        session_start();
+        session_start();  // Start session to store user info
         $row = $result->fetch_assoc();
-        $_SESSION['email'] = $row['email'];
-        header("Location: homepage.php");
+
+        // Store customerID and email in the session after successful login
+        $_SESSION['customerID'] = $row['customerID'];  // Store the customerID from the database
+        $_SESSION['email'] = $row['email'];  // Store the email
+
+        header("Location: homepage.php");  // Redirect to homepage after login
         exit();
     } else {
         echo "Not Found, Incorrect Email or Password";
     }
 }
 ?>
-=======
-
-include 'connect.php';
-
-if(isset($_POST['signUp'])){
-    $firstName=$_POST['fName'];
-    $lastName=$_POST['lName'];
-    $email=$_POST['email'];
-    $password=$_POST['password'];
-    $password=md5($password);
-
-     $checkEmail="SELECT * From users where email='$email'";
-     $result=$conn->query($checkEmail);
-     if($result->num_rows>0){
-        echo "Email Address Already Exists !";
-     }
-     else{
-        $insertQuery="INSERT INTO users(firstName,lastName,email,password)
-                       VALUES ('$firstName','$lastName','$email','$password')";
-            if($conn->query($insertQuery)==TRUE){
-                header("location: index.php");
-            }
-            else{
-                echo "Error:".$conn->error;
-            }
-     }
-   
-
-}
-
-if(isset($_POST['signIn'])){
-   $email=$_POST['email'];
-   $password=$_POST['password'];
-   $password=md5($password) ;
-   
-   $sql="SELECT * FROM users WHERE email='$email' and password='$password'";
-   $result=$conn->query($sql);
-   if($result->num_rows>0){
-    // session_start();
-    $row=$result->fetch_assoc();
-    $_SESSION['email']=$row['email'];
-    header("Location: homepage.php");
-    exit();
-   }
-   else{
-    echo "Not Found, Incorrect Email or Password";
-   }
-
-}
-?>
->>>>>>> 1b5d3db8b2f02c9d1369e7ce9a2300bb84e1c402

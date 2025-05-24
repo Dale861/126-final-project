@@ -1,26 +1,18 @@
 <?php
-<<<<<<< HEAD
 $host = 'localhost';
 $dbname = 'finalproject126';
 $username = 'root';
 $password = '';
 
-// Define the connection as $mysqli instead of $conn
+// Define the connection as $mysqli
 $mysqli = new mysqli($host, $username, $password, $dbname);
 
+// Check connection
 if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
+    error_log("Connection failed: " . $mysqli->connect_error); // Log the error
+    die("There was an issue with the connection. Please try again later.");
 }
-?>
-=======
 
-$host="localhost";
-$user="root";
-$pass="";
-$db="login";
-$conn=new mysqli($host,$user,$pass,$db);
-if($conn->connect_error){
-    echo "Failed to connect DB".$conn->connect_error;
-}
+// Set character set to utf8mb4 to handle special characters
+$mysqli->set_charset("utf8mb4");
 ?>
->>>>>>> 1b5d3db8b2f02c9d1369e7ce9a2300bb84e1c402
