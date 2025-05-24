@@ -31,19 +31,21 @@ if ($productResult && $productResult->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="Img/deliveryIcon.png" type="image/png">
     <script src="script.js" defer></script>
     <title>Product Detail</title>
 </head>
 <body>
     <header>
         <nav id="logo">
-            <img src="Img/Coffee-icon.png" alt="">
+            <img src="Img/deliveryIcon.png" alt="">
         </nav>
         <nav class="nav">
             <ul id="nav">
                 <li><a href="homepage.php">Home</a></li>
                 <li><a href="restaurant.php">Restaurants</a></li>
                 <li><a href="CheckoutPage.php">Cart</a></li>
+                <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>

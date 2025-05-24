@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Homepage</title>
 
     <!-- Favicon (Coffee Icon) -->
-    <link rel="icon" href="Img/Coffee-icon.png" type="image/png">
+    <link rel="icon" href="Img/deliveryIcon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <main>
     <header>
         <nav id="logo"> 
-            <img src="Img/Coffee-icon.png" alt="Logo">
+            <img src="Img/deliveryIcon.png" alt="Logo">
         </nav>
         <nav class="nav">
             <ul id="nav">

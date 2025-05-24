@@ -22,7 +22,7 @@ body {
 .logo-with-bg {
   height: 60px;
   width: 160px;
-  background: url('Vineyard.jpg') no-repeat center;
+  background: url('Img/deliveryIcon.png') no-repeat center;
   background-size: contain;
   display: flex;
   align-items: center;

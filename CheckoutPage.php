@@ -118,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
   <meta charset="UTF-8">
   <title>Checkout</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -201,6 +202,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($products)) {
   </style>
 </head>
 <body>
+      <header>
+        <nav id="logo"> 
+            <img src="Img/deliveryIcon.png" alt="Logo">
+        </nav>
+        <nav class="nav">
+            <ul id="nav">
+                <li><a href="homepage.php">Home</a></li>
+                <li><a href="restaurant.php">Restaurants</a></li>
+                <li><a href="CheckoutPage.php">Cart</a></li> <!-- Correct link to cart page -->
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
   <div class="container">
     <div style="margin-bottom: 20px;">
       <a href="foodshoppage.php?shop=<?php echo $shopID; ?>" style="text-decoration: none; color: black; display: inline-flex; align-items: center;">

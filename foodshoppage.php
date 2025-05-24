@@ -58,13 +58,16 @@ foreach ($order as $catName) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Food Shop</title>
+  <link rel="icon" href="Img/deliveryIcon.png" type="image/png">
   <link rel="stylesheet" href="foodshop.css"/>
 </head>
 <body>
   <div class="container">
     <!-- Header -->
     <header class="main-header">
-      <div class="logo-with-bg"><?php echo $shop ? htmlspecialchars($shop['shopName']) : 'Shop'; ?></div>
+      <!-- Dynamically set the background image based on the shopID -->
+      <div class="logo-with-bg" >
+      </div>
       <nav class="navbar">
         <ul>
           <li><a href="homepage.php">Home</a></li>
