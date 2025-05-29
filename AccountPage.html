@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Edit Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+        }
+        
+        .header {
+            background-color: #d9d9d9;
+            height: 181px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .back-button {
+            position: absolute;
+            left: 69px;
+            top: 91px;
+            width: 68px;
+            height: 2px;
+            background-color: #000000;
+            cursor: pointer;
+        }
+        
+        .back-button::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 2px;
+            background-color: #000000;
+            transform: rotate(45deg);
+            top: -4px;
+            left: 0;
+        }
+        
+        .back-button::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 2px;
+            background-color: #000000;
+            transform: rotate(-45deg);
+            top: 4px;
+            left: 0;
+        }
+        
+        .profile-container {
+            width: 778px;
+            height: 687px;
+            background-color: #ffffff;
+            border: 1px solid #e6e6e6;
+            border-radius: 12px;
+            margin: 86px auto;
+            padding: 32px;
+            position: relative;
+        }
+        
+        .profile-title {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 30px;
+            color: #000000;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #ffffff;
+            border: 1px solid #000000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+        }
+        
+        .info-icon span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+        }
+        
+        .form-label {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+            color: rgba(0, 0, 0, 0.5);
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .form-input {
+            width: 454px;
+            height: 49px;
+            background-color: #ffffff;
+            border: 1px solid #e6e6e6;
+            border-radius: 12px;
+            padding: 8px 15px;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 30px;
+            color: rgba(0, 0, 0, 0.25);
+            margin-bottom: 20px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #0090ff;
+        }
+        
+        .save-btn {
+            width: 92px;
+            height: 49px;
+            background-color: #828282;
+            border: 1px solid #e6e6e6;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 25px;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .save-btn:hover {
+            background-color: #6e6e6e;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 30px;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+        
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            height: 23px;
+            background-color: rgba(0, 144, 255, 0.53);
+            border: 1px solid rgba(230, 230, 230, 0.53);
+            border-radius: 11px;
+            padding: 0 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .verified-icon {
+            width: 14px;
+            height: 14px;
+            background-color: #00008b;
+            border-radius: 7px;
+            position: relative;
+            margin-right: 9px;
+        }
+        
+        .verified-icon::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #ffffff;
+            top: 6px;
+            left: 3px;
+        }
+        
+        .verified-icon::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #ffffff;
+            top: 5px;
+            left: 6px;
+            transform: rotate(45deg);
+        }
+        
+        .verified-text {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 17px;
+            color: #00008b;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="back-button" onclick="goBack()"></div>
+    </div>
+    
+    <div class="profile-container">
+        <div class="profile-title">
+            My profile
+            <div class="info-icon" onclick="showInfo()">
+                <span>i</span>
+            </div>
+        </div>
+        
+        <form id="personal-info-form">
+            <label class="form-label" for="first-name">First name</label>
+            <input type="text" id="first-name" class="form-input" value="Cedric">
+            
+            <label class="form-label" for="last-name">Last name</label>
+            <input type="text" id="last-name" class="form-input" value="Cedric">
+            
+            <label class="form-label" for="mobile-number">Mobile number</label>
+            <input type="tel" id="mobile-number" class="form-input" value="+63999999999">
+            
+            <button type="button" class="save-btn" onclick="savePersonalInfo()">Save</button>
+        </form>
+        
+        <div class="section-title">Email</div>
+        
+        <form id="email-form">
+            <label class="form-label" for="email">Email</label>
+            <input type="email" id="email" class="form-input" value="cedric@jimil.com">
+            
+            <div class="verified-badge">
+                <div class="verified-icon"></div>
+                <span class="verified-text">Verified</span>
+            </div>
+            
+            <button type="button" class="save-btn" onclick="saveEmail()">Save</button>
+        </form>
+    </div>
+
+    <script>
+        function goBack() {
+            // In a real application, this would navigate back
+            alert('Going back to previous page');
+        }
+        
+        function showInfo() {
+            alert('This is your profile information. You can edit and save your personal details here.');
+        }
+        
+        function savePersonalInfo() {
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const mobileNumber = document.getElementById('mobile-number').value;
+            
+            // Validate inputs
+            if (!firstName || !lastName || !mobileNumber) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // In a real application, this would send data to a server
+            alert('Personal information saved successfully!');
+        }
+        
+        function saveEmail() {
+            const email = document.getElementById('email').value;
+            
+            // Validate email
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // In a real application, this would send data to a server
+            alert('Email saved successfully!');
+        }
+    </script>
+</body>
+</html>
