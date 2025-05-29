@@ -364,8 +364,8 @@ main {
 }
 
 .Restaurant-SignUp img {
-    width: 50%; /* You can adjust the width to fit your design */
-    max-width: 400px; /* Optional: Set a max width to prevent the image from becoming too large */
+    width: 70%; /* You can adjust the width to fit your design */
+    max-width: 600px; /* Optional: Set a max width to prevent the image from becoming too large */
     border-radius: 0.5rem; /* Optional: Rounded corners for the image */
 }
 

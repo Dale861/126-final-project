@@ -95,11 +95,6 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
         <!-- Confirmation button (Initially hidden) -->
         <button id="confirm-button" style="display: none;" onclick="confirmAddress()">Confirm Address</button>
 
-        <!-- Image Section -->
-        <section>
-            <img src="Img/MiagaoChurch.jpg" alt="Miagao Church">
-        </section>
-
         <section class="Food-Selection">
             <h2>Ano gusto mo kaonon?</h2>
             <div class="food-grid">
