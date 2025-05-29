@@ -92,6 +92,7 @@
             width: 100%;
             height: 400px; /* Ensure the map has a height */
             margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         #map {
@@ -105,6 +106,9 @@
             padding: 20px;
             max-width: 1200px;
             margin: auto;
+        }
+        section {
+            right: 20px;
         }
 
         /* Shop grid */
@@ -134,28 +138,64 @@
         }
 
         /* Food Selection */
-        .Food-Selection .food-grid {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+        /* Food Selection */
+.Food-Selection .food-grid {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
-        .food-card {
-            width: 180px;
-            text-align: center;
-        }
+.food-card {
+    width: 220px; /* Set a fixed width for consistency */
+    height: 220px; /* Add fixed height for uniformity */
+    text-align: center;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
 
-        .food-card img {
-            width: 100%;
-            border-radius: 0.5rem;
-        }
+.food-card img {
+    width: 100%;
+    height: 150px; /* Set a consistent height for images */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+    border-radius: 8px;
+}
 
-        .food-card p {
-            margin-top: 0.5rem;
-            font-weight: bold;
-        }
+.food-card p {
+    font-size: 1rem;
+    color: #555;
+    font-weight: bold;
+    margin-top: 1rem;
+}
 
+/* Hover Effect */
+.food-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .food-grid {
+        gap: 1.5rem;
+    }
+
+    .food-card {
+        width: 100%; /* Full width on mobile for better readability */
+        max-width: 280px; /* Limit the width on large mobile devices */
+    }
+
+    .food-card img {
+        height: 180px; /* Adjust image height on mobile */
+    }
+}
         /* Footer Section */
         .Footer-Section footer {
             margin-top: 2rem;
@@ -288,3 +328,74 @@
             font-size: 1.1em;
             margin-top: 20px;
         }
+        /* Styling for the active link in the navigation */
+.nav li a.active {
+    color: #fff; /* White text for the active link */
+    background-color: #3277f3; /* Blue background for the active link */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for the active link */
+}
+/* Reviews Section */
+.Reviews {
+    margin-top: 2rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Reviews Section Heading */
+.Reviews h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Review grid styling */
+.review-grid {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* Individual Review Cards */
+.review-card {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+/* Review Card Hover Effect */
+.review-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Review Card Text */
+.review-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.review-card span {
+    font-weight: bold;
+    color: #3277f3; /* Blue color for the name */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .review-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .review-card {
+        width: 90%; /* Make cards smaller on mobile screens */
+    }
+}

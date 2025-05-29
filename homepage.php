@@ -28,10 +28,11 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
         </nav>
         <nav class="nav">
             <ul id="nav">
-                <li><a href="homepage.php">Home</a></li>
-                <li><a href="restaurant.php">Shops</a></li>
-                <li><a href="CheckoutPage.php">Cart</a></li> <!-- Correct link to cart page -->
-                <li><a href="logout.php">Logout</a></li>
+                <li><a href="homepage.php" class="<?= basename($_SERVER['PHP_SELF']) == 'homepage.php' ? 'active' : '' ?>">Home</a></li>
+                <li><a href="restaurant.php" class="<?= basename($_SERVER['PHP_SELF']) == 'restaurant.php' ? 'active' : '' ?>">Shops</a></li>
+                <li><a href="CheckoutPage.php" class="<?= basename($_SERVER['PHP_SELF']) == 'CheckoutPage.php' ? 'active' : '' ?>">Cart</a></li>
+                <li><a href="Accountpage.php" class="<?= basename($_SERVER['PHP_SELF']) == 'Accountpage.php' ? 'active' : '' ?>">Account</a></li>
+                <li><a href="logout.php" class="<?= basename($_SERVER['PHP_SELF']) == 'logout.php' ? 'active' : '' ?>">Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -95,7 +96,7 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
         <button id="confirm-button" style="display: none;" onclick="confirmAddress()">Confirm Address</button>
 
         <!-- Image Section -->
-        <section class="Restaurant-SignUp">
+        <section>
             <img src="Img/MiagaoChurch.jpg" alt="Miagao Church">
         </section>
 
@@ -103,15 +104,15 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
             <h2>Ano gusto mo kaonon?</h2>
             <div class="food-grid">
                 <div class="food-card">
-                    <img src="Img/CoffeeCup.jpg" alt="Snacks">
+                    <img src="Img/10.png" alt="Snacks">
                     <p>Snacks</p>
                 </div>
                 <div class="food-card">
-                    <img src="Img/Chocolate.jpg" alt="Meals">
-                    <p><strong>Meals</strong><br><span>Kaon na ta!</span></p>
+                    <img src="Img/4.png" alt="Meals">
+                    <p><strong>Meal</strong>
                 </div>
                 <div class="food-card">
-                    <img src="Img/Chocolate.jpg" alt="Dessert">
+                    <img src="Img/K7.png" alt="Dessert">
                     <p>Dessert</p>
                 </div>
             </div>
@@ -123,12 +124,12 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
                 <div class="shop-item">
                     <a href="foodshoppage.php?shopID=2"> <!-- Kubo shopID = 2 -->
                         <img src="Img/Kubo.jpg" alt="Kubo Resto"></a>
-                    <p><strong>Kubo Resto</strong> is chuchuchu</p>
+                    <p><strong>Kubo Resto</strong></p>
                 </div>
                 <div class="shop-item">
                     <a href="foodshoppage.php?shopID=1"> <!-- Vineyard shopID = 1 -->
                         <img src="Img/Vineyard.jpg" alt="Vineyard"></a>
-                    <p><strong>Vineyard</strong> is chuchuchu</p>
+                    <p><strong>Vineyard</strong></p>
                 </div>
             </div>
         </section>
@@ -137,39 +138,18 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
             <h2>Reviews</h2>
             <div class="review-grid">
                 <div class="review-card">
-                    <p>"Namit namit gidya"</p>
+                    <p>"Fast Delivery"</p>
                     <p>- Cedric</p>
                 </div>
                 <div class="review-card">
-                    <p>"Ugh kanamit"</p>
+                    <p>"Satisfied"</p>
                     <p>- Luis</p>
                 </div>
                 <div class="review-card">
-                    <p>"Shet isa pa"</p>
+                    <p>"Will always use this app"</p>
                     <p>- Dale</p>
                 </div>
             </div>
-        </section>
-      
-        <section class="Footer-Section">
-            <h2>Section heading</h2>
-            <button>Button</button>
-            <button class="secondary">Secondary button</button>
-            <footer>
-                <p>Site name</p>
-                <div class="footer-links">
-                    <ul>
-                        <li>Ad</li>
-                        <li>Ad</li>
-                        <li>Ad</li>
-                    </ul>
-                    <ul>
-                        <li>Ad</li>
-                        <li>Ad</li>
-                        <li>Ad</li>
-                    </ul>
-                </div>
-            </footer>
         </section>
 
     </main>
