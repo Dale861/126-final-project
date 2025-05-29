@@ -59,9 +59,7 @@ include 'Backend/fetch_foodshop.php';
                 while ($product = $productResult->fetch_assoc()):
               ?>
                 <div class="product-item">
-                  <a href="fooddetail.php?productID=<?php echo $product['productID']; ?>">
                     <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['itemName']; ?>" />
-                  </a>
                   <h3><?php echo $product['itemName']; ?></h3>
                   <p class="price">P<?php echo number_format($product['price'], 2); ?></p>
                   <form action="foodshoppage.php?shopID=<?php echo $shopID; ?>" method="POST">
