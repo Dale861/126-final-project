@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miagao Angkas Pabakal - Restaurant Directory</title>
+    <title>Miagao Angkas Pabakal</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,600 +14,560 @@
         body {
             font-family: Inter, sans-serif;
             background-color: #ffffff;
-            line-height: 1.6;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .main-container {
+            width: 1440px;
+            height: 1497px;
+            position: relative;
+            background-color: #ffffff;
+            margin: 0 auto;
         }
 
         /* Header Styles */
         .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1440px;
+            height: 174px;
             background-color: #ffffff;
-            height: 125px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 61px;
-            border-bottom: 1px solid #e0e0e0;
+            z-index: 100;
         }
 
         .logo {
+            position: absolute;
+            top: 67px;
+            left: 61px;
             font-size: 20px;
             font-family: Inter;
             font-weight: 500;
             line-height: 25px;
             color: #000000;
+            width: 228px;
+            height: 28px;
         }
 
         .nav-menu {
             display: flex;
             align-items: center;
             gap: 48px;
+            position: absolute;
+            top: 61px;
+            right: 80px;
         }
 
-        .nav-item {
+        .nav-link {
             font-size: 20px;
             font-family: Inter;
             font-weight: 500;
             line-height: 25px;
             color: #000000;
             text-decoration: none;
+            padding: 11px 0;
             cursor: pointer;
             transition: color 0.3s ease;
         }
 
-        .nav-item:hover {
+        .nav-link:hover {
             color: #666666;
         }
 
-        .nav-item.active {
+        .restaurants-btn {
             background-color: #000000;
             color: #ffffff;
             padding: 14px 24px;
             border-radius: 8px;
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 500;
+            line-height: 20px;
+            text-decoration: none;
             box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .restaurants-btn:hover {
+            background-color: #333333;
         }
 
         /* Main Content */
-        .main-content {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .main-heading {
+            position: absolute;
+            top: 173px;
+            left: 80px;
+            font-size: 48px;
+            font-family: Inter;
+            font-weight: 600;
+            line-height: 59px;
+            color: #000000;
+            width: 572px;
+            height: 67px;
         }
 
-        /* Restaurant Grid */
-        .restaurant-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(536px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
+        /* Restaurant Cards */
         .restaurant-card {
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 6px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            position: absolute;
+            top: 280px;
         }
 
-        .restaurant-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .restaurant-card.manang-betch {
+            left: 80px;
+        }
+
+        .restaurant-card.vineyard {
+            left: 735px;
         }
 
         .restaurant-image {
-            position: relative;
-            height: 164px;
-            background-color: rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .restaurant-badge {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.05);
-            padding: 4px;
-            border-radius: 6px 0px 0px 6px;
-        }
-
-        .badge-text {
-            font-size: 12px;
-            font-family: Roboto;
-            font-weight: 500;
-            line-height: 15px;
-            color: #000000;
-        }
-
-        .restaurant-description {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            font-family: Roboto;
-            font-weight: 400;
-            line-height: 15px;
-            text-align: center;
-            color: #000000;
-            max-width: 80%;
-        }
-
-        .restaurant-info {
-            padding: 8px;
-        }
-
-        .restaurant-name {
-            font-size: 12px;
-            font-family: Roboto;
-            font-weight: 400;
-            line-height: 15px;
-            color: #000000;
-            margin-bottom: 5px;
-        }
-
-        .restaurant-tagline {
-            font-size: 16px;
-            font-family: Roboto;
-            font-weight: 500;
-            line-height: 19px;
-            color: #000000;
-        }
-
-        /* Customer Reviews Section */
-        .reviews-section {
-            margin: 40px 0;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-family: Roboto;
-            font-weight: 500;
-            line-height: 22px;
-            color: #000000;
-            margin-bottom: 20px;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .review-card {
-            background-color: rgba(0, 0, 0, 0.05);
-            border-radius: 6px;
-            padding: 12px;
+            width: 624px;
+            height: 341px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
             transition: transform 0.3s ease;
         }
 
-        .review-card:hover {
-            transform: translateY(-1px);
+        .restaurant-image:hover {
+            transform: scale(1.02);
         }
 
-        .review-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .reviewer-avatar {
-            width: 24px;
-            height: 24px;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            margin-right: 8px;
-        }
-
-        .reviewer-name {
-            font-size: 12px;
-            font-family: Roboto;
+        .restaurant-name {
+            font-size: 24px;
+            font-family: Inter;
             font-weight: 500;
-            line-height: 15px;
+            line-height: 30px;
             color: #000000;
-            flex-grow: 1;
+            margin-top: 35px;
+            margin-bottom: 7px;
         }
 
-        .star-rating {
-            width: 58px;
-            height: 9px;
-            background-image: url('../assets/images/img_vector.svg');
-            background-repeat: no-repeat;
-            background-size: contain;
+        .restaurant-description {
+            font-size: 24px;
+            font-family: Inter;
+            font-weight: 400;
+            line-height: 36px;
+            color: #828282;
+            width: 548px;
+            white-space: pre-line;
+        }
+
+        /* Reviews Section */
+        .reviews-heading {
+            position: absolute;
+            top: 868px;
+            left: 82px;
+            font-size: 48px;
+            font-family: Inter;
+            font-weight: 600;
+            line-height: 59px;
+            color: #000000;
+            width: 188px;
+            height: 67px;
+        }
+
+        .review-card {
+            position: absolute;
+            top: 980px;
+            width: 405px;
+            height: 198px;
+            background-color: #ffffff;
+            border: 1px solid #e6e6e6;
+            border-radius: 12px;
+            padding: 32px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .review-card.review-1 {
+            left: 82px;
+        }
+
+        .review-card.review-2 {
+            left: 519px;
+        }
+
+        .review-card.review-3 {
+            left: 956px;
         }
 
         .review-text {
-            font-size: 14px;
-            font-family: Roboto;
-            font-weight: 400;
+            font-size: 24px;
+            font-family: Inter;
+            font-weight: 500;
+            line-height: 30px;
+            color: #000000;
+            margin-bottom: 48px;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .reviewer-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 22px;
+            object-fit: cover;
+        }
+
+        .reviewer-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .reviewer-name {
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 500;
             line-height: 20px;
             color: #000000;
         }
 
+        .reviewer-description {
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 500;
+            line-height: 20px;
+            color: #828282;
+        }
+
         /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (max-width: 1440px) {
+            .main-container {
+                width: 100%;
+                max-width: 1440px;
+            }
+
             .header {
-                padding: 0 20px;
-                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                width: 100%;
                 height: auto;
                 padding: 20px;
             }
 
+            .header {
+                position: relative;
+                height: auto;
+                padding: 20px;
+            }
+
+            .logo {
+                position: static;
+                margin-bottom: 20px;
+            }
+
             .nav-menu {
-                gap: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
+                position: static;
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
             }
 
-            .restaurant-grid {
-                grid-template-columns: 1fr;
+            .main-heading {
+                position: static;
+                font-size: 32px;
+                line-height: 40px;
+                width: 100%;
+                margin: 40px 0;
             }
 
-            .reviews-grid {
-                grid-template-columns: 1fr;
+            .restaurant-card {
+                position: static;
+                margin-bottom: 40px;
+                width: 100%;
             }
 
-            .main-content {
-                padding: 10px;
+            .restaurant-image {
+                width: 100%;
+                height: 200px;
+            }
+
+            .restaurant-description {
+                width: 100%;
+            }
+
+            .reviews-heading {
+                position: static;
+                margin: 40px 0 20px 0;
+            }
+
+            .review-card {
+                position: static;
+                width: 100%;
+                margin-bottom: 20px;
             }
         }
 
         @media (max-width: 480px) {
-            .nav-item {
-                font-size: 16px;
+            .main-heading {
+                font-size: 24px;
+                line-height: 30px;
             }
 
-            .logo {
+            .restaurant-name {
+                font-size: 20px;
+            }
+
+            .restaurant-description {
                 font-size: 18px;
-                text-align: center;
-                margin-bottom: 10px;
+                line-height: 24px;
             }
 
-            .nav-item.active {
-                padding: 10px 16px;
+            .reviews-heading {
+                font-size: 32px;
+                line-height: 40px;
             }
-        }
 
-        /* Interactive States */
-        .restaurant-card:active {
-            transform: translateY(0);
-        }
-
-        .nav-item:focus {
-            outline: 2px solid #000000;
-            outline-offset: 2px;
-        }
-
-        .review-card:focus {
-            outline: 2px solid #000000;
-            outline-offset: 2px;
-        }
-
-        /* Loading States */
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 20px;
-            margin: -10px 0 0 -10px;
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #000000;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            .review-text {
+                font-size: 18px;
+                line-height: 24px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">Miagao Angkas Pabakal</div>
-        <nav class="nav-menu">
-            <a href="#" class="nav-item" onclick="navigateToPage('home')">Home</a>
-            <a href="#" class="nav-item active" onclick="navigateToPage('restaurants')">Resdtaurants</a>
-            <a href="#" class="nav-item" onclick="navigateToPage('cart')">Cart</a>
-            <a href="#" class="nav-item" onclick="navigateToPage('account')">Account</a>
-        </nav>
-    </header>
+    <div class="main-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">Miagao Angkas Pabakal</div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link" onclick="navigateToHome()">Home</a>
+                <a href="#" class="restaurants-btn" onclick="showRestaurants()">Restaurants</a>
+                <a href="#" class="nav-link" onclick="showCart()">Cart</a>
+                <a href="#" class="nav-link" onclick="showAccount()">Account</a>
+            </nav>
+        </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Restaurant Grid -->
-        <div class="restaurant-grid">
-            <!-- Popular Restaurant -->
-            <div class="restaurant-card" onclick="viewRestaurant('vineyard')">
-                <div class="restaurant-image">
-                    <div class="restaurant-badge">
-                        <span class="badge-text">Popular</span>
+        <!-- Main Content -->
+        <main>
+            <h1 class="main-heading">Diin mo gusto mag bakal?</h1>
+
+            <!-- Restaurant Cards -->
+            <div class="restaurant-card manang-betch">
+                <img src="../assets/images/img_image.png" alt="Manang Betch Restaurant" class="restaurant-image" onclick="viewRestaurant('manang-betch')">
+                <h2 class="restaurant-name">Manang Betch</h2>
+                <p class="restaurant-description">OG
+OG
+OG</p>
+            </div>
+
+            <div class="restaurant-card vineyard">
+                <img src="../assets/images/img_image_341x624.png" alt="Vineyard Restaurant" class="restaurant-image" onclick="viewRestaurant('vineyard')">
+                <h2 class="restaurant-name">Vineyard</h2>
+                <p class="restaurant-description">Vineyard is a lokal restaurant in Miagao which serves Filipino inspired home-cooked food and dessert</p>
+            </div>
+
+            <!-- Reviews Section -->
+            <h2 class="reviews-heading">Reviews</h2>
+
+            <div class="review-card review-1">
+                <p class="review-text">"A terrific piece of praise"</p>
+                <div class="reviewer-info">
+                    <img src="../assets/images/img_avatar.png" alt="Reviewer Avatar" class="reviewer-avatar">
+                    <div class="reviewer-details">
+                        <span class="reviewer-name">Name</span>
+                        <span class="reviewer-description">Description</span>
                     </div>
-                    <div class="restaurant-description">A beautiful vineyard with outdoor seating</div>
-                </div>
-                <div class="restaurant-info">
-                    <div class="restaurant-name">Vineyard</div>
-                    <div class="restaurant-tagline">Wine and dine in a serene setting.</div>
                 </div>
             </div>
 
-            <!-- New Restaurant -->
-            <div class="restaurant-card" onclick="viewRestaurant('kubo')">
-                <div class="restaurant-image">
-                    <div class="restaurant-badge">
-                        <span class="badge-text">New</span>
+            <div class="review-card review-2">
+                <p class="review-text">"A fantastic bit of feedback"</p>
+                <div class="reviewer-info">
+                    <img src="../assets/images/img_avatar_45x45.png" alt="Reviewer Avatar" class="reviewer-avatar">
+                    <div class="reviewer-details">
+                        <span class="reviewer-name">Name</span>
+                        <span class="reviewer-description">Description</span>
                     </div>
-                    <div class="restaurant-description">Modern Japanese cuisine at Kubo</div>
-                </div>
-                <div class="restaurant-info">
-                    <div class="restaurant-name">Kubo</div>
-                    <div class="restaurant-tagline">Authentic sushi and ramen.</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Customer Reviews Section -->
-        <section class="reviews-section">
-            <h2 class="section-title">Customer Reviews</h2>
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar"></div>
-                        <span class="reviewer-name">Alice</span>
-                        <img src="../assets/images/img_vector.svg" alt="5 star rating" class="star-rating">
-                    </div>
-                    <p class="review-text">The food was amazing and the service was excellent!</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar"></div>
-                        <span class="reviewer-name">Bob</span>
-                        <img src="../assets/images/img_vector.svg" alt="5 star rating" class="star-rating">
-                    </div>
-                    <p class="review-text">Loved the ambiance and the variety of dishes offered.</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar"></div>
-                        <span class="reviewer-name">Bob</span>
-                        <img src="../assets/images/img_vector.svg" alt="5 star rating" class="star-rating">
-                    </div>
-                    <p class="review-text">Loved the ambiance and the variety of dishes offered.</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar"></div>
-                        <span class="reviewer-name">Bob</span>
-                        <img src="../assets/images/img_vector.svg" alt="5 star rating" class="star-rating">
-                    </div>
-                    <p class="review-text">Loved the ambiance and the variety of dishes offered.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Second Restaurant Grid -->
-        <div class="restaurant-grid">
-            <!-- Favorites Restaurant -->
-            <div class="restaurant-card" onclick="viewRestaurant('trattoria')">
-                <div class="restaurant-image">
-                    <div class="restaurant-badge">
-                        <span class="badge-text">Favorites</span>
-                    </div>
-                    <div class="restaurant-description">Cozy Italian restaurant</div>
-                </div>
-                <div class="restaurant-info">
-                    <div class="restaurant-name">Trattoria</div>
-                    <div class="restaurant-tagline">Delicious pasta and pizza options.</div>
                 </div>
             </div>
 
-            <!-- Bestseller Restaurant -->
-            <div class="restaurant-card" onclick="viewRestaurant('burger-haven')">
-                <div class="restaurant-image">
-                    <div class="restaurant-badge">
-                        <span class="badge-text">Bestseller</span>
+            <div class="review-card review-3">
+                <p class="review-text">"A genuinely glowing review"</p>
+                <div class="reviewer-info">
+                    <img src="../assets/images/img_avatar_1.png" alt="Reviewer Avatar" class="reviewer-avatar">
+                    <div class="reviewer-details">
+                        <span class="reviewer-name">Name</span>
+                        <span class="reviewer-description">Description</span>
                     </div>
-                    <div class="restaurant-description">Burger joint with a retro vibe</div>
-                </div>
-                <div class="restaurant-info">
-                    <div class="restaurant-name">Burger Haven</div>
-                    <div class="restaurant-tagline">Juicy burgers and milkshakes.</div>
                 </div>
             </div>
-        </div>
-
-        <!-- Second Customer Reviews Section -->
-        <section class="reviews-section">
-            <h2 class="section-title">Customer Reviews</h2>
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar"></div>
-                        <span class="reviewer-name">Alice</span>
-                        <img src="../assets/images/img_vector.svg" alt="5 star rating" class="star-rating">
-                    </div>
-                    <p class="review-text">The food was amazing and the service was excellent!</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar"></div>
-                        <span class="reviewer-name">Bob</span>
-                        <img src="../assets/images/img_vector.svg" alt="5 star rating" class="star-rating">
-                    </div>
-                    <p class="review-text">Loved the ambiance and the variety of dishes offered.</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar"></div>
-                        <span class="reviewer-name">Bob</span>
-                        <img src="../assets/images/img_vector.svg" alt="5 star rating" class="star-rating">
-                    </div>
-                    <p class="review-text">Loved the ambiance and the variety of dishes offered.</p>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="reviewer-avatar"></div>
-                        <span class="reviewer-name">Bob</span>
-                        <img src="../assets/images/img_vector.svg" alt="5 star rating" class="star-rating">
-                    </div>
-                    <p class="review-text">Loved the ambiance and the variety of dishes offered.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+        </main>
+    </div>
 
     <script>
-        // Navigation functionality
-        function navigateToPage(page) {
-            // Remove active class from all nav items
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Add active class to clicked item
-            event.target.classList.add('active');
-            
-            // Simulate page navigation
-            console.log(`Navigating to ${page} page`);
-            
-            // Show loading state
-            document.body.classList.add('loading');
-            
-            setTimeout(() => {
-                document.body.classList.remove('loading');
-                alert(`Welcome to ${page.charAt(0).toUpperCase() + page.slice(1)} page!`);
-            }, 1000);
+        // Navigation Functions
+        function navigateToHome() {
+            console.log('Navigating to Home page');
+            alert('Navigating to Home page');
         }
 
-        // Restaurant card functionality
+        function showRestaurants() {
+            console.log('Showing restaurants page');
+            alert('Loading restaurants...');
+        }
+
+        function showCart() {
+            console.log('Showing cart');
+            alert('Opening cart...');
+        }
+
+        function showAccount() {
+            console.log('Showing account page');
+            alert('Opening account page...');
+        }
+
+        // Restaurant Functions
         function viewRestaurant(restaurantId) {
             console.log(`Viewing restaurant: ${restaurantId}`);
             
-            // Add loading state to clicked card
-            event.currentTarget.classList.add('loading');
-            
-            setTimeout(() => {
-                event.currentTarget.classList.remove('loading');
-                
-                // Simulate restaurant details view
-                const restaurantNames = {
-                    'vineyard': 'Vineyard',
-                    'kubo': 'Kubo',
-                    'trattoria': 'Trattoria',
-                    'burger-haven': 'Burger Haven'
-                };
-                
-                alert(`Opening ${restaurantNames[restaurantId]} details...\
+            const restaurantData = {
+                'manang-betch': {
+                    name: 'Manang Betch',
+                    description: 'Original Gangster restaurant serving authentic local cuisine',
+                    rating: 4.5,
+                    cuisine: 'Filipino',
+                    location: 'Miagao'
+                },
+                'vineyard': {
+                    name: 'Vineyard',
+                    description: 'Vineyard is a lokal restaurant in Miagao which serves Filipino inspired home-cooked food and dessert',
+                    rating: 4.8,
+                    cuisine: 'Filipino Fusion',
+                    location: 'Miagao'
+                }
+            };
+
+            const restaurant = restaurantData[restaurantId];
+            if (restaurant) {
+                alert(`Restaurant: ${restaurant.name}\
+Cuisine: ${restaurant.cuisine}\
+Rating: ${restaurant.rating}/5\
+Location: ${restaurant.location}\
 \
-Features:\
-- Menu & Pricing\
-- Reviews & Ratings\
-- Location & Hours\
-- Online Reservation`);
-            }, 800);
+${restaurant.description}`);
+            }
         }
 
-        // Review card interactions
-        document.querySelectorAll('.review-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const reviewerName = this.querySelector('.reviewer-name').textContent;
-                const reviewText = this.querySelector('.review-text').textContent;
+        // Review Interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            const reviewCards = document.querySelectorAll('.review-card');
+            
+            reviewCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const reviewText = this.querySelector('.review-text').textContent;
+                    const reviewerName = this.querySelector('.reviewer-name').textContent;
+                    
+                    console.log(`Review clicked: ${reviewText} by ${reviewerName}`);
+                    
+                    // Simulate showing full review
+                    const fullReviewData = {
+                        'A terrific piece of praise': {
+                            fullText: 'This restaurant exceeded all my expectations. The food was absolutely delicious and the service was outstanding. I will definitely be coming back!',
+                            rating: 5,
+                            date: '2024-01-15'
+                        },
+                        'A fantastic bit of feedback': {
+                            fullText: 'Great atmosphere and wonderful Filipino cuisine. The staff was very friendly and accommodating. Highly recommended for anyone looking for authentic local food.',
+                            rating: 4,
+                            date: '2024-01-10'
+                        },
+                        'A genuinely glowing review': {
+                            fullText: 'Amazing experience! The food quality is top-notch and the prices are very reasonable. This place captures the true essence of Filipino hospitality.',
+                            rating: 5,
+                            date: '2024-01-08'
+                        }
+                    };
+
+                    const cleanReviewText = reviewText.replace(/"/g, '');
+                    const fullReview = fullReviewData[cleanReviewText];
+                    
+                    if (fullReview) {
+                        alert(`Full Review by ${reviewerName}:\
+\
+${fullReview.fullText}\
+\
+Rating: ${fullReview.rating}/5 stars\
+Date: ${fullReview.date}`);
+                    }
+                });
+            });
+
+            // Restaurant image hover effects
+            const restaurantImages = document.querySelectorAll('.restaurant-image');
+            restaurantImages.forEach(img => {
+                img.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.1)';
+                });
                 
-                alert(`Review by ${reviewerName}:\
-\
-"${reviewText}"\
-\
-Would you like to see more reviews from this user?`);
+                img.addEventListener('mouseleave', function() {
+                    this.style.filter = 'brightness(1)';
+                });
+            });
+
+            // Simulate loading states
+            const buttons = document.querySelectorAll('.restaurants-btn, .nav-link');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const originalText = this.textContent;
+                    this.textContent = 'Loading...';
+                    this.style.opacity = '0.7';
+                    
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.style.opacity = '1';
+                    }, 1500);
+                });
             });
         });
 
         // Search functionality (simulated)
-        function searchRestaurants() {
-            const searchTerm = prompt('Search for restaurants:');
-            if (searchTerm) {
-                console.log(`Searching for: ${searchTerm}`);
-                alert(`Searching for "${searchTerm}"...\
-\
-Found 3 restaurants matching your search!`);
-            }
+        function searchRestaurants(query) {
+            console.log(`Searching for: ${query}`);
+            
+            const restaurants = [
+                { name: 'Manang Betch', cuisine: 'Filipino', rating: 4.5 },
+                { name: 'Vineyard', cuisine: 'Filipino Fusion', rating: 4.8 },
+                { name: 'Kusina ni Lola', cuisine: 'Traditional Filipino', rating: 4.3 },
+                { name: 'Seafood Paradise', cuisine: 'Seafood', rating: 4.6 }
+            ];
+
+            const results = restaurants.filter(restaurant => 
+                restaurant.name.toLowerCase().includes(query.toLowerCase()) ||
+                restaurant.cuisine.toLowerCase().includes(query.toLowerCase())
+            );
+
+            return results;
         }
 
-        // Filter functionality
-        function filterRestaurants(category) {
-            console.log(`Filtering by category: ${category}`);
-            
-            // Simulate filtering
-            const cards = document.querySelectorAll('.restaurant-card');
-            cards.forEach(card => {
-                card.style.opacity = '0.5';
-            });
-            
-            setTimeout(() => {
-                cards.forEach(card => {
-                    card.style.opacity = '1';
-                });
-                alert(`Showing ${category} restaurants`);
-            }, 500);
-        }
-
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                if (e.target.classList.contains('restaurant-card')) {
-                    e.target.click();
-                }
-            }
-        });
-
-        // Add focus management for accessibility
-        document.querySelectorAll('.restaurant-card, .review-card').forEach(element => {
-            element.setAttribute('tabindex', '0');
-            element.setAttribute('role', 'button');
-        });
-
-        // Simulate real-time updates
-        function updateReviews() {
-            const reviewCards = document.querySelectorAll('.review-card');
-            const randomCard = reviewCards[Math.floor(Math.random() * reviewCards.length)];
-            
-            randomCard.style.border = '2px solid #4CAF50';
-            setTimeout(() => {
-                randomCard.style.border = 'none';
-            }, 2000);
-        }
-
-        // Update reviews every 10 seconds
-        setInterval(updateReviews, 10000);
-
-        // Initialize page
+        // Error handling for images
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Miagao Angkas Pabakal Restaurant Directory loaded successfully!');
-            
-            // Add hover effects
-            document.querySelectorAll('.restaurant-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-2px)';
-                    this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = 'none';
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    console.log(`Failed to load image: ${this.src}`);
+                    this.style.backgroundColor = '#f0f0f0';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.alt = 'Image not available';
                 });
             });
         });
