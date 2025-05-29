@@ -361,3 +361,58 @@ header {
   border-radius: 20px;
   text-align: center;
 }
+/* For screens with max width of 1280px (Medium Laptops) */
+@media (max-width: 1280px) {
+  .container {
+    width: 80vw; /* Reduce container width for medium screens */
+    padding-top: 20px; /* Adjust padding */
+  }
+  .listProduct {
+    grid-template-columns: repeat(3, 1fr); /* 3 products per row */
+  }
+  .product-item {
+    width: 100%; /* Ensure products fill the container */
+  }
+  .food-card {
+    width: 200px; /* Adjust width for food cards */
+  }
+}
+
+/* For screens with max width of 1024px (Small Laptops and Tablets) */
+@media (max-width: 1024px) {
+  .container {
+    width: 90%; /* Ensure container is slightly smaller */
+  }
+  .listProduct {
+    grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+  }
+  .food-card {
+    width: 180px; /* Adjust food card width */
+  }
+}
+
+/* For screens with max width of 768px (Tablets and Small Laptops) */
+@media (max-width: 768px) {
+  .container {
+    width: 100%; /* Ensure full-width on smaller screens */
+  }
+  .listProduct {
+    grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+  }
+  .food-card {
+    width: 160px; /* Adjust food card width */
+  }
+}
+
+/* For screens with max width of 600px (Mobile Devices) */
+@media (max-width: 600px) {
+  .listProduct {
+    grid-template-columns: 1fr; /* 1 product per row on mobile */
+  }
+  .food-card {
+    width: 100%; /* Full width for mobile */
+  }
+  .shop-item {
+    flex: 1 1 100%; /* Ensure shop items take full width */
+  }
+}

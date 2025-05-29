@@ -144,30 +144,33 @@ document.addEventListener('DOMContentLoaded', function () {
     const estimatedTimeText = document.querySelector('.delivery-time strong');
     
     let estimatedTime = 30; 
-    if (loadingScreen.style.display === 'flex') {
-        let progress = 0;
-        const progressBar = document.getElementById('progress-bar');
-        const loadingText = document.getElementById('loading-text');
+    let progress = 0;
 
-        const interval = setInterval(() => {
-            if (progress < 100) {
-                progress++;
-                progressBar.style.width = progress + '%';
-                loadingText.textContent = `LOADING... ${progress}%`;
-                estimatedTime = Math.max(0, 30 - (0.3 * progress)); // Ensure time doesn't go below 0 minutes
-                estimatedTimeText.innerHTML = `${estimatedTime.toFixed(1)} Mins`; // Update the time at the top
-            } else {
-                clearInterval(interval);
-                loadingText.textContent = `Your Delivery is here!`;
+    // Interval for the progress bar animation
+    const interval = setInterval(() => {
+        if (progress < 100) {
+            progress++;
+            progressBar.style.width = progress + '%';
+            loadingText.textContent = `LOADING... ${progress}%`;
+            estimatedTime = Math.max(0, 30 - (0.3 * progress)); // Ensure time doesn't go below 0 minutes
+            estimatedTimeText.innerHTML = `${estimatedTime.toFixed(1)} Mins`; // Update the time at the top
+        } else {
+            clearInterval(interval);
+            loadingText.textContent = `Your Delivery is here!`;
+            orderReceivedSection.style.display = 'block'; // Show order received section
 
-                // Show the "Order Received" button when delivery is here
-                orderReceivedSection.style.display = 'block';
-                
-                // Optionally, hide the progress bar when delivery is confirmed
-                progressBar.style.display = 'none';
-            }
-        }, 50); // Faster animation (50ms instead of 100ms)
-    }
+            // Optionally, hide the progress bar when delivery is confirmed
+            progressBar.style.display = 'none';
+        }
+    }, 30); // Faster animation (30ms instead of 50ms) for a quicker loading screen
+
+    // Add event listener to detect clicks outside the loading screen
+    loadingScreen.addEventListener('click', function (event) {
+        if (event.target === loadingScreen) {
+            // Minimize or hide the loading screen if clicked outside
+            loadingScreen.style.display = 'none';  // Hide the loading screen
+        }
+    });
 });
 
 // Function to hide the loading screen when the customer confirms the order is received
