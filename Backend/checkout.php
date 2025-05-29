@@ -32,7 +32,7 @@ if ($result->num_rows > 0) {
 } else {
     // If there are no products in the cart, redirect to the shop page with a message
     $_SESSION['message'] = "Your cart is empty. Please add items to your cart!";
-    header("Location: foodshoppage.php?shop=$shopID");
+    header("Location: restaurant.php");
     exit();
 }
 

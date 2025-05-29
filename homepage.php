@@ -10,7 +10,6 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
     <title>Homepage</title>
 
 
-    <!-- Favicon (Coffee Icon) -->
     <link rel="icon" href="Img/deliveryIcon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="CSS/styles.css">
@@ -55,6 +54,7 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
     </div>
     <div class="order-details">
       <p>Order Number: <strong><?php echo $orderID; ?></strong></p>
+      <p>Total Amount: <strong><?php echo number_format($totalAmount, 2); ?></strong></p>
     </div>
 
     <div id="order-received-section" style="display: none;">

@@ -17,6 +17,7 @@ if (isset($_SESSION['show_loading']) && $_SESSION['show_loading'] === true) {
     // Fetch the orderID from the session if it exists
     if (isset($_SESSION['last_order'])) {
         $orderID = $_SESSION['last_order']['orderID'];
+        $totalAmount = $_SESSION['last_order']['totalAmount']; // Get the total amount from the last order
     } else {
         $orderID = "N/A"; // Default value if orderID is not available
     }

@@ -1,5 +1,5 @@
 <?php
-include 'Backend/fetch_foodshop.php'; // Include the script to fetch shop and product data
+include 'Backend/fetch_foodshop.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ include 'Backend/fetch_foodshop.php'; // Include the script to fetch shop and pr
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Food Shop</title>
   <link rel="icon" href="Img/deliveryIcon.png" type="image/png">
-  <link rel="stylesheet" href="foodshop.css"/>
+  <link rel="stylesheet" href="CSS/foodshop.css"/>
 </head>
 <body>
   <div class="container">
@@ -60,7 +60,7 @@ include 'Backend/fetch_foodshop.php'; // Include the script to fetch shop and pr
                   </a>
                   <h3><?php echo $product['itemName']; ?></h3>
                   <p class="price">P<?php echo number_format($product['price'], 2); ?></p>
-                  <form action="foodshoppage.php?shop=<?php echo $shopID; ?>" method="POST">
+                  <form action="foodshoppage.php?shopID=<?php echo $shopID; ?>" method="POST">
                     <input type="hidden" name="productID" value="<?php echo $product['productID']; ?>">
                     <input type="hidden" name="productName" value="<?php echo $product['itemName']; ?>">
                     <input type="hidden" name="productPrice" value="<?php echo $product['price']; ?>">
