@@ -135,27 +135,7 @@
             </div>
         </section>
 
-    <!-- Footer Section -->
-    <section class="Footer-Section">
-        <h2>Section heading</h2>
-        <button>Button</button>
-        <button class="secondary">Secondary button</button>
-        <footer>
-            <p>Site name</p>
-            <div class="footer-links">
-                <ul>
-                    <li>Ad</li>
-                    <li>Ad</li>
-                    <li>Ad</li>
-                </ul>
-                <ul>
-                    <li>Ad</li>
-                    <li>Ad</li>
-                    <li>Ad</li>
-                </ul>
-            </div>
-        </footer>
-    </section>
+  
   </main>
 
   <!-- Link to external script file -->

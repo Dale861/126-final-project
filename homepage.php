@@ -129,24 +129,6 @@ include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepag
             </div>
         </section>
 
-        <section class="Reviews">
-            <h2>Reviews</h2>
-            <div class="review-grid">
-                <div class="review-card">
-                    <p>"Fast Delivery"</p>
-                    <p>- Cedric</p>
-                </div>
-                <div class="review-card">
-                    <p>"Satisfied"</p>
-                    <p>- Luis</p>
-                </div>
-                <div class="review-card">
-                    <p>"Will always use this app"</p>
-                    <p>- Dale</p>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <!-- OpenStreetMap -->
