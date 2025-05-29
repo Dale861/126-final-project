@@ -13,10 +13,6 @@
 <body>
   <main>
     <header>
-        <nav id="logo"> 
-            <img src="Img/deliveryIcon.png" alt="Logo">
-        </nav>
-        
         <nav>
           <button class="open-button" id="openSignUp" onclick="openForm()">Sign up</button>          
         </nav>
@@ -106,23 +102,38 @@
     </section>
 
     <!-- Food Selection Section -->
-    <section class="Food-Selection">
-        <h2>Ano gusto mo kaonon?</h2>
-        <div class="food-grid">
-            <div class="food-card">
-                <img src="Img/CoffeeCup.jpg" alt="Snacks">
-                <p>Snacks</p>
+        <section class="Food-Selection">
+            <h2>Ano gusto mo kaonon?</h2>
+            <div class="food-grid">
+                <div class="food-card">
+                    <img src="Img/10.png" alt="Snacks">
+                    <p>Snacks</p>
+                </div>
+                <div class="food-card">
+                    <img src="Img/4.png" alt="Meals">
+                    <p><strong>Meal</strong>
+                </div>
+                <div class="food-card">
+                    <img src="Img/K7.png" alt="Dessert">
+                    <p>Dessert</p>
+                </div>
             </div>
-            <div class="food-card">
-                <img src="Img/Chocolate.jpg" alt="Meals">
-                <p><strong>Meals</strong><br><span>Kaon na ta!</span></p>
+        </section>
+    <section class="Shops">
+            <h2>Diin mo gusto mag bakal?</h2>
+            <div class="shop-grid">
+                <div class="shop-item">
+                    <a href="foodshoppage.php?shopID=2"> <!-- Kubo shopID = 2 -->
+                        <img src="Img/Kubo.jpg" alt="Kubo Resto"></a>
+                    <p><strong>Kubo Resto</strong></p>
+                </div>
+                <div class="shop-item">
+                    <a href="foodshoppage.php?shopID=1"> <!-- Vineyard shopID = 1 -->
+                        <img src="Img/Vineyard.jpg" alt="Vineyard"></a>
+                    <p><strong>Vineyard</strong></p>
+                </div>
             </div>
-            <div class="food-card">
-                <img src="Img/Chocolate.jpg" alt="Dessert">
-                <p>Dessert</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
     <!-- Footer Section -->
     <section class="Footer-Section">

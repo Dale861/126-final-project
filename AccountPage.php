@@ -256,7 +256,6 @@ include 'Backend/fetch_profile.php';
         <div class="section-title">Email</div>
 
         <form method="POST" action="profile_edit.php">
-            <label class="form-label" for="email">Email</label>
             <input type="email" id="email" name="email" class="form-input" 
                    value="<?php echo htmlspecialchars($customer['email']); ?>" disabled>
 
@@ -269,8 +268,8 @@ include 'Backend/fetch_profile.php';
         </form>
 
             <form method="POST" action="profile_edit.php">
-                <label class="form-label" for="current-password">Current Password</label>
-                <input type="password" id="current-password" name="current_password" class="form-input" disabled>
+                <label class="form-label" for="current-password">Password</label>
+                <input type="password" id="current-password" name="current_password" class="form-input" value="*******" disabled>
 
 
                 <!-- Save button removed as per your request -->
