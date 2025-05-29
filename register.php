@@ -1,5 +1,5 @@
 <?php 
-include 'connect.php';
+include 'Backend/connect.php';
 
 if (isset($_POST['signUp'])) {
     $fname = $_POST['fname'];  // First name

@@ -1,35 +1,5 @@
 <?php
-session_start();  // Start the session
-include("connect.php");  // Include the database connection file
-
-if (isset($_SESSION['customerID'])) {
-    $customerID = $_SESSION['customerID'];  // Get customerID from session
-} else {
-    // Redirect to login page if the user is not logged in
-    header("Location: homepage.php");
-    exit();
-}
-
-// Handle the form submission and update the address in the database
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $address = $_POST['address'];  // Get the address from the form
-
-    // Check if the address is empty
-    if (empty($address)) {
-        // If the address is empty, set a default address or show an error
-        echo "Error: Address cannot be empty.";
-        exit();  // Stop the script execution
-    }
-
-    // Update the address for the customer in the database
-    $stmt = $mysqli->prepare("UPDATE customers SET address = ? WHERE customerID = ?");
-    $stmt->bind_param("si", $address, $customerID);
-    $stmt->execute();
-
-    // Optionally, redirect to another page or display a success message
-    echo "Address updated successfully!";
-    exit();  // End script execution after the update
-}
+include 'Backend/fetch_homepage.php'; // Include the PHP script to fetch homepage data
 ?>
 
 <!DOCTYPE html>
@@ -39,16 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
 
+
     <!-- Favicon (Coffee Icon) -->
     <link rel="icon" href="Img/deliveryIcon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="CSS/styles.css">
 
     <!-- Leaflet.js CSS (For map styling) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
 </head>
 <body>
+
   <main>
     <header>
         <nav id="logo"> 
@@ -57,13 +30,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <nav class="nav">
             <ul id="nav">
                 <li><a href="homepage.php">Home</a></li>
-                <li><a href="restaurant.php">Restaurants</a></li>
+                <li><a href="restaurant.php">Shops</a></li>
                 <li><a href="CheckoutPage.php">Cart</a></li> <!-- Correct link to cart page -->
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>
+    <div id="loading-screen" style="display: <?php echo $showLoading ? 'flex' : 'none'; ?>;">
+        <div class="loading-content">
+    <div class="delivery-time">Estimated Delivery<br><strong><?php echo $estimatedDeliveryTime; ?></strong></div>
+    <div class="clock-icon">
+      <lord-icon
+        src="https://cdn.lordicon.com/warimioc.json"
+        trigger="loop"
+        state="loop-oscillate"
+        style="width:250px;height:250px">
+      </lord-icon>
+    </div>
+    <div class="progress-section">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progress-bar"></div>
+      </div>
+      <div class="loading-text" id="loading-text">LOADING... 0%</div>
+    </div>
+    <div class="order-details">
+      <p>Order Number: <strong><?php echo $orderID; ?></strong></p>
+    </div>
 
+    <div id="order-received-section" style="display: none;">
+        <p>Your order has arrived!</p>
+        <button id="order-received-btn" onclick="orderReceived()">Order Received</button>
+    </div>
+
+</div>
+</div>
     <div style="text-align:center; padding:15%;">
         <p style="font-size:50px; font-weight:bold;">
             Hello  <?php 
@@ -121,12 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h2>Diin mo gusto mag bakal?</h2>
             <div class="shop-grid">
                 <div class="shop-item">
-                    <a href="foodshoppage.php?shop=2"> <!-- Kubo shopID = 2 -->
+                    <a href="foodshoppage.php?shopID=2"> <!-- Kubo shopID = 2 -->
                         <img src="Img/Kubo.jpg" alt="Kubo Resto"></a>
                     <p><strong>Kubo Resto</strong> is chuchuchu</p>
                 </div>
                 <div class="shop-item">
-                    <a href="foodshoppage.php?shop=1"> <!-- Vineyard shopID = 1 -->
+                    <a href="foodshoppage.php?shopID=1"> <!-- Vineyard shopID = 1 -->
                         <img src="Img/Vineyard.jpg" alt="Vineyard"></a>
                     <p><strong>Vineyard</strong> is chuchuchu</p>
                 </div>
@@ -178,6 +178,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const loadingScreen = document.getElementById('loading-screen');
+    const orderReceivedSection = document.getElementById('order-received-section');
+    const orderReceivedBtn = document.getElementById('order-received-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const loadingText = document.getElementById('loading-text');
+    const estimatedTimeText = document.querySelector('.delivery-time strong');
+    
+    let estimatedTime = 30; 
+    if (loadingScreen.style.display === 'flex') {
+        let progress = 0;
+        const progressBar = document.getElementById('progress-bar');
+        const loadingText = document.getElementById('loading-text');
+
+        const interval = setInterval(() => {
+            if (progress < 100) {
+                progress++;
+                progressBar.style.width = progress + '%';
+                loadingText.textContent = `LOADING... ${progress}%`;
+                estimatedTime = Math.max(0, 30 - (0.3 * progress)); // Ensure time doesn't go below 0 minutes
+                estimatedTimeText.innerHTML = `${estimatedTime.toFixed(1)} Mins`; // Update the time at the top
+            } else {
+                clearInterval(interval);
+                loadingText.textContent = `Your Delivery is here!`;
+
+                // Show the "Order Received" button when delivery is here
+                orderReceivedSection.style.display = 'block';
+                
+                // Optionally, hide the progress bar when delivery is confirmed
+                progressBar.style.display = 'none';
+            }
+        }, 50); // Faster animation (50ms instead of 100ms)
+    }
+});
+
+// Function to hide the loading screen when the customer confirms the order is received
+function orderReceived() {
+    const loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.display = 'none';  // Hide the loading screen
+}
+  
     document.addEventListener('DOMContentLoaded', function () {
         initMap('map-homepage');  // Initialize the map with the element ID 'map-homepage'
     });

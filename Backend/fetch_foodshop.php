@@ -1,12 +1,54 @@
 <?php
-// Include the database connection file
-include 'connect.php';
+
+session_start(); // Start the session
+include 'connect.php'; // Include database connection
+
+// Access customerID from session
 if (isset($_SESSION['customerID'])) {
     $customerID = $_SESSION['customerID'];  // Get customerID from session
 } else {
     // Redirect to login page if the user is not logged in
     header("Location: index.php");
     exit();
+}
+
+// Get shop ID from URL or default to 1
+$shopID = isset($_GET['shopID']) ? (int)$_GET['shopID'] : 1;
+
+// Store the shop ID in session for persistent use
+$_SESSION['shopID'] = $shopID; // Save the shopID to session
+
+// Fetch shop information
+$shopQuery = "SELECT * FROM Shops WHERE ShopID = $shopID";
+$shopResult = $mysqli->query($shopQuery);
+$shop = null;
+
+if ($shopResult && $shopResult->num_rows > 0) {
+    $shop = $shopResult->fetch_assoc();
+}
+
+// Fetch categories
+$categoryQuery = "SELECT * FROM categories";
+$categoryResult = $mysqli->query($categoryQuery);
+
+// Store categories in an array
+$categories = [];
+while ($category = $categoryResult->fetch_assoc()) {
+    $categories[] = $category;
+}
+
+// Manually sort the categories in the order you want: Appetizers, Main Course, Drinks
+$orderedCategories = [];
+$order = ['Appetizer', 'Main Course', 'Drinks'];
+
+foreach ($order as $catName) {
+    foreach ($categories as $key => $category) {
+        if ($category['name'] == $catName) {
+            $orderedCategories[] = $category;
+            unset($categories[$key]); // Remove the category once it's added to the ordered list
+            break;
+        }
+    }
 }
 // Assuming the user is logged in, retrieve customerID from session or other method
 $customerID = isset($_SESSION['customerID']) ? $_SESSION['customerID'] : 1;; // Example customer ID, replace with actual logic for a logged-in user

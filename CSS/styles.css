@@ -1,0 +1,290 @@
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f3f3f3;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #logo {
+            flex-grow: 1;
+        }
+
+        nav img {
+            width: 40px;
+        }
+
+        .nav {
+            ul {
+                display: flex;
+                gap: 20px;
+                list-style: none;
+            }
+
+            li a {
+                text-decoration: none;
+                color: #555;
+                font-weight: bold;
+                padding: 10px 15px;
+                border-radius: 4px;
+                background-color: #f7f7f7;
+                transition: all 0.3s ease;
+            }
+
+            li a:hover {
+                background-color: #f0f0f0;
+                border-radius: 8px;
+            }
+        }
+
+        /* Search Bar and Map Styling */
+        .LocationAPI {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .LocationAPI h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-bar {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .search-bar input {
+            padding: 0.5rem;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .search-bar button {
+            padding: 0.5rem 1rem;
+            background-color: #3277f3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Map container styling */
+        #map-container {
+            display: none; /* Initially hide the map container */
+            width: 100%;
+            height: 400px; /* Ensure the map has a height */
+            margin-top: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Shop grid */
+        .shop-grid {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .shop-item {
+            flex: 1 1 45%;
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .shop-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .shop-item img {
+            width: 100%;
+            border-radius: 0.5rem;
+        }
+
+        /* Food Selection */
+        .Food-Selection .food-grid {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .food-card {
+            width: 180px;
+            text-align: center;
+        }
+
+        .food-card img {
+            width: 100%;
+            border-radius: 0.5rem;
+        }
+
+        .food-card p {
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* Footer Section */
+        .Footer-Section footer {
+            margin-top: 2rem;
+            border-top: 1px solid #ccc;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Search Container */
+        .search-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        #search-location {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3277f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0059b3;
+        }
+
+        /* Address Display */
+        #address-display {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .shop-item {
+                flex: 1 1 100%;
+            }
+
+            .food-card {
+                width: 100%;
+            }
+
+            #map-container {
+                height: 300px; /* Adjust map height for mobile */
+            }
+        }
+
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .delivery-time {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .progress-section {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: #eee;
+            border-radius: 50px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0;
+            background: #007bff;
+            transition: width 0.1s ease-in-out;
+        }
+
+        .loading-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .order-details {
+            font-size: 1.1em;
+            margin-top: 20px;
+        }

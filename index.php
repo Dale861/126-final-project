@@ -8,7 +8,7 @@
     <link rel="icon" href="Img/deliveryIcon.png" type="image/png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="signUp-style.css">
+    <link rel="stylesheet" href="CSS/signUp-style.css">
 </head>
 <body>
   <main>
@@ -148,7 +148,7 @@
   </main>
 
   <!-- Link to external script file -->
-  <script src="script.js"></script>
+  <script src="JS/script.js"></script>
 
 </body>
 </html>
