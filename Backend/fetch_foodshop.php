@@ -1,6 +1,8 @@
 <?php
-// Include the database connection file
-include 'connect.php';
+session_start(); // Start the session
+include 'Backend/connect.php'; // Include database connection
+
+// Access customerID from session
 if (isset($_SESSION['customerID'])) {
     $customerID = $_SESSION['customerID'];  // Get customerID from session
 } else {
@@ -8,9 +10,47 @@ if (isset($_SESSION['customerID'])) {
     header("Location: index.php");
     exit();
 }
-// Assuming the user is logged in, retrieve customerID from session or other method
-$customerID = isset($_SESSION['customerID']) ? $_SESSION['customerID'] : 1;; // Example customer ID, replace with actual logic for a logged-in user
 
+// Get shop ID from URL or default to 1
+$shopID = isset($_GET['shopID']) ? (int)$_GET['shopID'] : 1;
+
+// Store the shop ID in session for persistent use
+$_SESSION['shopID'] = $shopID; // Save the shopID to session
+
+// Fetch shop information
+$shopQuery = "SELECT * FROM Shops WHERE ShopID = $shopID";
+$shopResult = $mysqli->query($shopQuery);
+$shop = null;
+
+if ($shopResult && $shopResult->num_rows > 0) {
+    $shop = $shopResult->fetch_assoc();
+}
+
+// Fetch categories
+$categoryQuery = "SELECT * FROM categories";
+$categoryResult = $mysqli->query($categoryQuery);
+
+// Store categories in an array
+$categories = [];
+while ($category = $categoryResult->fetch_assoc()) {
+    $categories[] = $category;
+}
+
+// Manually sort the categories in the order you want: Appetizers, Main Course, Drinks
+$orderedCategories = [];
+$order = ['Appetizer', 'Main Course', 'Drinks'];
+
+foreach ($order as $catName) {
+    foreach ($categories as $key => $category) {
+        if ($category['name'] == $catName) {
+            $orderedCategories[] = $category;
+            unset($categories[$key]); // Remove the category once it's added to the ordered list
+            break;
+        }
+    }
+}
+
+// CART FUNCTIONALITY
 // Get the cart items for the customer
 $cartQuery = "SELECT ci.cartItemID, p.itemName AS name, p.price, ci.quantity, p.image_url 
               FROM CartItems ci 
@@ -23,9 +63,6 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $cartItems[] = $row;
     }
-} else {
-    // If no cart items found, show a message indicating the cart is empty
-    $cartItems = []; // Empty cart
 }
 
 // Calculate the total amount
@@ -44,7 +81,7 @@ if (isset($_POST['add_to_cart'])) {
     $productName = $_POST['productName'];
     $productPrice = $_POST['productPrice'];
     $productImage = $_POST['productImage'];
-    $shopID = isset($_GET['shop']) ? (int)$_GET['shop'] : 1;
+    $shopID = isset($_POST['shopID']) ? (int)$_POST['shopID'] : $shopID;
 
     // Check if the product is already in the cart
     $checkQuery = "SELECT * FROM CartItems WHERE customerID = $customerID AND productID = $productID";
@@ -61,13 +98,14 @@ if (isset($_POST['add_to_cart'])) {
     }
 
     // Redirect back to the page after adding to cart
-    header("Location: foodshoppage.php?shop=$shopID");
+    header("Location: foodshoppage.php?shopID=$shopID");
     exit();
 }
 
 // Handle decreasing quantity (minus button)
 if (isset($_POST['decrease_quantity'])) {
     $cartItemID = $_POST['cartItemID'];  // Get the cartItemID to identify the item
+    $shopID = isset($_POST['shopID']) ? (int)$_POST['shopID'] : $shopID;
 
     // First, fetch the current quantity of the item
     $quantityQuery = "SELECT quantity FROM CartItems WHERE cartItemID = $cartItemID AND customerID = $customerID";
@@ -86,7 +124,6 @@ if (isset($_POST['decrease_quantity'])) {
     }
 
     // Redirect back to the page after removing/updating the cart
-    $shopID = isset($_GET['shop']) ? (int)$_GET['shop'] : 1;
     header("Location: foodshoppage.php?shop=$shopID");
     exit();
 }
@@ -94,13 +131,13 @@ if (isset($_POST['decrease_quantity'])) {
 // Handle increasing quantity (plus button)
 if (isset($_POST['increase_quantity'])) {
     $cartItemID = $_POST['cartItemID'];  // Get the cartItemID to identify the item
+    $shopID = isset($_POST['shopID']) ? (int)$_POST['shopID'] : $shopID;
 
     // Increase the quantity by 1
     $updateQuery = "UPDATE CartItems SET quantity = quantity + 1 WHERE cartItemID = $cartItemID AND customerID = $customerID";
     $mysqli->query($updateQuery);
 
     // Redirect back to the page after updating the cart
-    $shopID = isset($_GET['shop']) ? (int)$_GET['shop'] : 1;
     header("Location: foodshoppage.php?shop=$shopID");
     exit();
 }

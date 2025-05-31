@@ -8,50 +8,58 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: #f9f9f9;
 }
-
-/* Header */
-.main-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background-color: #f5f5f5;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-}
-.logo-with-bg {
-  height: 60px;
-  width: 160px;
-  background: url('Img/deliveryIcon.png') no-repeat center;
-  background-size: contain;
+/* Add this to your CSS */
+header {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.8rem;
-  font-weight: bold;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  justify-content: space-between; /* This will push logo to left and nav to right */
+  padding: 10px 20px; /* Add some padding */
+  background-color: #fff; /* Optional: add background color */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: add shadow */
 }
 
-/* Navigation */
-.navbar ul {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-}
-.navbar ul li a {
-  text-decoration: none;
-  background-color: #cbcbcb;
-  color: #333;
-  padding: 8px 14px;
-  border-radius: 5px;
-  font-weight: 600;
-  transition: background-color 0.3s;
-}
-.navbar ul li a:hover {
-  background-color: #e0e0e0;
+#logo {
+  flex-grow: 0; /* Change from 1 to 0 to prevent it from growing */
+  margin-right: auto; /* Pushes everything else to the right */
 }
 
+.nav {
+  margin-left: auto; /* Ensures nav stays to the right */
+}
+
+/* Optional: Adjust the nav items spacing */
+.nav ul {
+  gap: 10px; /* Reduce gap between nav items if needed */
+}
+.nav li a {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.nav li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #3277f3;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav li a:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav li a:hover {
+  color: #000;
+  background-color: transparent;
+}
 /* Products */
 .container {
   max-width: 90vw;
@@ -140,7 +148,7 @@ body {
 
 /* Cart Tab */
 .cartTab {
-  width: 400px;
+  width: 17%;
   background-color: #353432;
   color: #eee;
   position: fixed;
@@ -352,4 +360,59 @@ body {
   padding: 10px;
   border-radius: 20px;
   text-align: center;
+}
+/* For screens with max width of 1280px (Medium Laptops) */
+@media (max-width: 1280px) {
+  .container {
+    width: 80vw; /* Reduce container width for medium screens */
+    padding-top: 20px; /* Adjust padding */
+  }
+  .listProduct {
+    grid-template-columns: repeat(3, 1fr); /* 3 products per row */
+  }
+  .product-item {
+    width: 100%; /* Ensure products fill the container */
+  }
+  .food-card {
+    width: 200px; /* Adjust width for food cards */
+  }
+}
+
+/* For screens with max width of 1024px (Small Laptops and Tablets) */
+@media (max-width: 1024px) {
+  .container {
+    width: 90%; /* Ensure container is slightly smaller */
+  }
+  .listProduct {
+    grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+  }
+  .food-card {
+    width: 180px; /* Adjust food card width */
+  }
+}
+
+/* For screens with max width of 768px (Tablets and Small Laptops) */
+@media (max-width: 768px) {
+  .container {
+    width: 100%; /* Ensure full-width on smaller screens */
+  }
+  .listProduct {
+    grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+  }
+  .food-card {
+    width: 160px; /* Adjust food card width */
+  }
+}
+
+/* For screens with max width of 600px (Mobile Devices) */
+@media (max-width: 600px) {
+  .listProduct {
+    grid-template-columns: 1fr; /* 1 product per row on mobile */
+  }
+  .food-card {
+    width: 100%; /* Full width for mobile */
+  }
+  .shop-item {
+    flex: 1 1 100%; /* Ensure shop items take full width */
+  }
 }

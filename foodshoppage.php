@@ -1,55 +1,5 @@
 <?php
-session_start(); // Start the session
-include 'connect.php'; // Include database connection
-include 'cart.php'; // Include cart logic
-
-// Access customerID from session
-if (isset($_SESSION['customerID'])) {
-    $customerID = $_SESSION['customerID'];  // Get customerID from session
-} else {
-    // Redirect to login page if the user is not logged in
-    header("Location: index.php");
-    exit();
-}
-
-// Get shop ID from URL or default to 1
-$shopID = isset($_GET['shop']) ? (int)$_GET['shop'] : 1;
-
-// Store the shop ID in session for persistent use
-$_SESSION['shopID'] = $shopID; // Save the shopID to session
-
-// Fetch shop information
-$shopQuery = "SELECT * FROM Shops WHERE ShopID = $shopID";
-$shopResult = $mysqli->query($shopQuery);
-$shop = null;
-
-if ($shopResult && $shopResult->num_rows > 0) {
-    $shop = $shopResult->fetch_assoc();
-}
-
-// Fetch categories
-$categoryQuery = "SELECT * FROM categories";
-$categoryResult = $mysqli->query($categoryQuery);
-
-// Store categories in an array
-$categories = [];
-while ($category = $categoryResult->fetch_assoc()) {
-    $categories[] = $category;
-}
-
-// Manually sort the categories in the order you want: Appetizers, Main Course, Drinks
-$orderedCategories = [];
-$order = ['Appetizer', 'Main Course', 'Drinks'];
-
-foreach ($order as $catName) {
-    foreach ($categories as $key => $category) {
-        if ($category['name'] == $catName) {
-            $orderedCategories[] = $category;
-            unset($categories[$key]); // Remove the category once it's added to the ordered list
-            break;
-        }
-    }
-}
+include 'Backend/fetch_foodshop.php';
 ?>
 
 <!DOCTYPE html>
@@ -59,23 +9,27 @@ foreach ($order as $catName) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Food Shop</title>
   <link rel="icon" href="Img/deliveryIcon.png" type="image/png">
-  <link rel="stylesheet" href="foodshop.css"/>
+  <link rel="stylesheet" href="CSS/styles.css"/>
+  <link rel="stylesheet" href="CSS/foodshop.css"/>
+  
 </head>
 <body>
+
   <div class="container">
     <!-- Header -->
-    <header class="main-header">
-      <!-- Dynamically set the background image based on the shopID -->
-      <div class="logo-with-bg" >
-      </div>
-      <nav class="navbar">
-        <ul>
-          <li><a href="homepage.php">Home</a></li>
-          <li><a href="restaurant.php">Restaurants</a></li>
-          <li><a href="CheckoutPage.php">Cart</a></li>
-          <li><a href="logout.php">Logout</a></li>
-        </ul>
-      </nav>
+    <header>
+        <nav id="logo"> 
+            <img src="Img/deliveryIcon.png" alt="Logo">
+        </nav>
+        <nav class="nav">
+            <ul id="nav">
+                <li><a href="homepage.php" class="<?= basename($_SERVER['PHP_SELF']) == 'homepage.php' ? 'active' : '' ?>">Home</a></li>
+                <li><a href="restaurant.php" class="<?= basename($_SERVER['PHP_SELF']) == 'restaurant.php' ? 'active' : '' ?>">Shops</a></li>
+                <li><a href="CheckoutPage.php" class="<?= basename($_SERVER['PHP_SELF']) == 'CheckoutPage.php' ? 'active' : '' ?>">Cart</a></li>
+                <li><a href="Accountpage.php" class="<?= basename($_SERVER['PHP_SELF']) == 'Accountpage.php' ? 'active' : '' ?>">My Profile</a></li>
+                <li><a href="logout.php" class="<?= basename($_SERVER['PHP_SELF']) == 'logout.php' ? 'active' : '' ?>">Logout</a></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Shop Banner -->
@@ -105,12 +59,10 @@ foreach ($order as $catName) {
                 while ($product = $productResult->fetch_assoc()):
               ?>
                 <div class="product-item">
-                  <a href="fooddetail.php?productID=<?php echo $product['productID']; ?>">
                     <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['itemName']; ?>" />
-                  </a>
                   <h3><?php echo $product['itemName']; ?></h3>
                   <p class="price">P<?php echo number_format($product['price'], 2); ?></p>
-                  <form action="foodshoppage.php?shop=<?php echo $shopID; ?>" method="POST">
+                  <form action="foodshoppage.php?shopID=<?php echo $shopID; ?>" method="POST">
                     <input type="hidden" name="productID" value="<?php echo $product['productID']; ?>">
                     <input type="hidden" name="productName" value="<?php echo $product['itemName']; ?>">
                     <input type="hidden" name="productPrice" value="<?php echo $product['price']; ?>">

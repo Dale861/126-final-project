@@ -64,6 +64,42 @@ header {
     }
 
 }
+.Food-Selection .food-grid {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.food-card {
+    width: 220px; /* Set a fixed width for consistency */
+    height: 220px; /* Add fixed height for uniformity */
+    text-align: center;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.food-card img {
+    width: 100%;
+    height: 150px; /* Set a consistent height for images */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+    border-radius: 8px;
+}
+
+.food-card p {
+    font-size: 1rem;
+    color: #555;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
 
 main {
     font-family: sans-serif;
@@ -328,8 +364,8 @@ main {
 }
 
 .Restaurant-SignUp img {
-    width: 50%; /* You can adjust the width to fit your design */
-    max-width: 400px; /* Optional: Set a max width to prevent the image from becoming too large */
+    width: 70%; /* You can adjust the width to fit your design */
+    max-width: 600px; /* Optional: Set a max width to prevent the image from becoming too large */
     border-radius: 0.5rem; /* Optional: Rounded corners for the image */
 }
 

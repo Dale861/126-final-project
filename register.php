@@ -1,5 +1,5 @@
 <?php 
-include 'connect.php';
+include 'Backend/connect.php';
 
 if (isset($_POST['signUp'])) {
     $fname = $_POST['fname'];  // First name
@@ -49,6 +49,7 @@ if (isset($_POST['signIn'])) {
         header("Location: homepage.php");  // Redirect to homepage after login
         exit();
     } else {
+        header("Location: index.php");  // Redirect back to index.php if login fails
         echo "Not Found, Incorrect Email or Password";
     }
 }

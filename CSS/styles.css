@@ -1,0 +1,542 @@
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f3f3f3;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #logo {
+            flex-grow: 1;
+        }
+
+        nav img {
+            width: 40px;
+        }
+
+        .nav {
+            ul {
+                display: flex;
+                gap: 20px;
+                list-style: none;
+            }
+
+            li a {
+                text-decoration: none;
+                color: #555;
+                font-weight: bold;
+                padding: 10px 15px;
+                border-radius: 4px;
+                background-color: #f7f7f7;
+                transition: all 0.3s ease;
+            }
+
+            li a:hover {
+                background-color: #f0f0f0;
+                border-radius: 8px;
+            }
+        }
+
+        /* Search Bar and Map Styling */
+        .LocationAPI {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .LocationAPI h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .search-bar {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .search-bar input {
+            padding: 0.5rem;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .search-bar button {
+            padding: 0.5rem 1rem;
+            background-color: #3277f3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* Map container styling */
+        #map-container {
+            display: none; /* Initially hide the map container */
+            width: 100%;
+            height: 400px; /* Ensure the map has a height */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Main Content */
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        section {
+            right: 20px;
+        }
+
+        /* Shop grid */
+        .shop-grid {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .shop-item {
+            flex: 1 1 45%;
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .shop-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .shop-item img {
+    width: 100%;
+            border-radius: 0.5rem;
+}
+
+        /* Food Selection */
+.Food-Selection .food-grid {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.food-card {
+    width: 220px; /* Set a fixed width for consistency */
+    height: 220px; /* Add fixed height for uniformity */
+    text-align: center;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.food-card img {
+    width: 100%;
+    height: 150px; /* Set a consistent height for images */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+    border-radius: 8px;
+}
+
+.food-card p {
+    font-size: 1rem;
+    color: #555;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .food-grid {
+        gap: 1.5rem;
+    }
+
+    .food-card {
+        width: 100%; /* Full width on mobile for better readability */
+        max-width: 280px; /* Limit the width on large mobile devices */
+    }
+
+    .food-card img {
+        height: 180px; /* Adjust image height on mobile */
+    }
+}
+        /* Footer Section */
+        .Footer-Section footer {
+            margin-top: 2rem;
+            border-top: 1px solid #ccc;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Search Container */
+        .search-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        #search-location {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3277f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0059b3;
+        }
+
+        /* Address Display */
+        #address-display {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .shop-item {
+                flex: 1 1 100%;
+            }
+
+            .food-card {
+                width: 100%;
+            }
+
+            #map-container {
+                height: 300px; /* Adjust map height for mobile */
+            }
+        }
+
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .delivery-time {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .progress-section {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: #eee;
+            border-radius: 50px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0;
+            background: #007bff;
+            transition: width 0.1s ease-in-out;
+        }
+
+        .loading-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .order-details {
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        /* Styling for the active link in the navigation */
+.nav li a.active {
+    color: #fff; /* White text for the active link */
+    background-color: #3277f3; /* Blue background for the active link */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for the active link */
+}
+/* Reviews Section */
+.Reviews {
+    margin-top: 2rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Reviews Section Heading */
+.Reviews h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Review grid styling */
+.review-grid {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* Individual Review Cards */
+.review-card {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 10px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+/* Review Card Text */
+.review-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.review-card span {
+    font-weight: bold;
+    color: #3277f3; /* Blue color for the name */
+}
+
+        .back-button {
+            position: absolute;
+            left: 69px;
+            top: 91px;
+            width: 68px;
+            height: 2px;
+            background-color: #000000;
+            cursor: pointer;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 2px;
+            background-color: #000000;
+            transform: rotate(45deg);
+            top: -4px;
+            left: 0;
+        }
+
+        .back-button::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 2px;
+            background-color: #000000;
+            transform: rotate(-45deg);
+            top: 4px;
+            left: 0;
+        }
+
+        .profile-container {
+            width: 778px;
+            min-height: 687px;
+            background-color: #ffffff;
+            border: 1px solid #e6e6e6;
+            border-radius: 12px;
+            margin: 86px auto;
+            padding: 32px;
+            position: relative;
+        }
+
+        .profile-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #fff;
+            border: 1px solid #000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        .info-icon span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
+        }
+
+        .form-label {
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.5);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 49px;
+            background-color: #fff;
+            border: 1px solid #e6e6e6;
+            border-radius: 12px;
+            padding: 8px 15px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            pointer-events: none; /* Disables editing */
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0090ff;
+        }
+
+        .save-btn {
+            width: 92px;
+            height: 49px;
+            background-color: #0090ff;
+            border: 1px solid #0090ff;
+            border-radius: 12px;
+            font-size: 20px;
+            color: #fff;
+            cursor: not-allowed; /* Disable the button */
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .save-btn:hover {
+            background-color: #0070cc;
+            border-color: #0070cc;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            height: 23px;
+            background-color: rgba(0, 144, 255, 0.53);
+            border: 1px solid rgba(230, 230, 230, 0.53);
+            border-radius: 11px;
+            padding: 0 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .verified-icon {
+            width: 14px;
+            height: 14px;
+            background-color: #00008b;
+            border-radius: 7px;
+            position: relative;
+            margin-right: 9px;
+        }
+
+        .verified-icon::before {
+            content: '✓';
+            position: absolute;
+            color: #fff;
+            font-size: 10px;
+            top: 0;
+            left: 2px;
+        }
+
+        .verified-text {
+            font-size: 14px;
+            color: #00008b;
+        }
+
+        .password-section {
+            border-top: 1px solid #e6e6e6;
+            padding-top: 30px;
+            margin-top: 30px;
+        }
+/* Responsive Design */
+@media (max-width: 768px) {
+    .review-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .review-card {
+        width: 90%; /* Make cards smaller on mobile screens */
+    }
+}

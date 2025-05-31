@@ -1,0 +1,156 @@
+/* Reset & base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f5f2;
+    color: #333;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 2px solid #ccc;
+}
+
+#logo img {
+    width: 50px;
+    height: auto;
+}
+
+.nav ul {
+    list-style: none;
+    gap: 20px;
+    display: flex;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav ul li a:hover {
+    color: #996633;
+}
+
+/* Main Product Section */
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.product-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+}
+
+/* Image */
+.product-image img {
+    width: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Product Info Center */
+.product-info {
+    flex: 1;
+    min-width: 250px;
+}
+
+.product-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.quantity-selector button {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.quantity-selector input {
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+    font-size: 16px;
+}
+
+button[type="button"] {
+    background-color: #663300;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="button"]:hover {
+    background-color: #884d00;
+}
+
+/* Options Section Right */
+.product-options {
+    min-width: 200px;
+}
+
+.product-options label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.size-options input,
+.addons-options input {
+    margin-right: 5px;
+    margin-bottom: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .product-detail {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-image img {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .product-info,
+    .product-options {
+        width: 100%;
+    }
+}
